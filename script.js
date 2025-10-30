@@ -21,7 +21,14 @@ const tarotCards = [
         loveScore: 5,
         moodScore: 15,
         keywords: ['开始', '自由', '纯真', '探索'],
-        emoji: '🃏'
+        symbol: '🌻',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #FF6B6B, #FFE66D)',
+            border: '#FF8E53',
+            element: '空气',
+            number: '0',
+            suitSymbol: '☀️'
+        }
     },
     {
         id: 1,
@@ -32,7 +39,14 @@ const tarotCards = [
         loveScore: 8,
         moodScore: 20,
         keywords: ['创造', '意志', '资源', '行动'],
-        emoji: '🎩'
+        symbol: '🌟',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #8B5CF6, #EC4899)',
+            border: '#A855F7',
+            element: '火',
+            number: 'I',
+            suitSymbol: '🔮'
+        }
     },
     {
         id: 2,
@@ -43,7 +57,14 @@ const tarotCards = [
         loveScore: 6,
         moodScore: 10,
         keywords: ['直觉', '智慧', '神秘', '洞察'],
-        emoji: '🔮'
+        symbol: '🌙',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
+            border: '#7C3AED',
+            element: '水',
+            number: 'II',
+            suitSymbol: '🌊'
+        }
     },
     {
         id: 3,
@@ -54,7 +75,14 @@ const tarotCards = [
         loveScore: 9,
         moodScore: 25,
         keywords: ['丰盛', '创造', '母性', '自然'],
-        emoji: '👸'
+        symbol: '🌸',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #10B981, #059669)',
+            border: '#059669',
+            element: '土',
+            number: 'III',
+            suitSymbol: '🌿'
+        }
     },
     {
         id: 4,
@@ -65,7 +93,14 @@ const tarotCards = [
         loveScore: 7,
         moodScore: 5,
         keywords: ['权威', '结构', '控制', '领导'],
-        emoji: '🤴'
+        symbol: '👑',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #EF4444, #DC2626)',
+            border: '#B91C1C',
+            element: '火',
+            number: 'IV',
+            suitSymbol: '⚡'
+        }
     },
     {
         id: 5,
@@ -76,7 +111,14 @@ const tarotCards = [
         loveScore: 6,
         moodScore: 0,
         keywords: ['传统', '智慧', '指导', '信仰'],
-        emoji: '⚡'
+        symbol: '🏛️',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #6B7280, #4B5563)',
+            border: '#374151',
+            element: '土',
+            number: 'V',
+            suitSymbol: '🔑'
+        }
     },
     {
         id: 6,
@@ -87,7 +129,14 @@ const tarotCards = [
         loveScore: 10,
         moodScore: 30,
         keywords: ['爱情', '关系', '选择', '和谐'],
-        emoji: '💕'
+        symbol: '💕',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+            border: '#B45309',
+            element: '空气',
+            number: 'VI',
+            suitSymbol: '🕊️'
+        }
     },
     {
         id: 7,
@@ -98,7 +147,14 @@ const tarotCards = [
         loveScore: 4,
         moodScore: 15,
         keywords: ['胜利', '意志', '决心', '前进'],
-        emoji: '🏰'
+        symbol: '🏆',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #84CC16, #65A30D)',
+            border: '#4D7C0F',
+            element: '水',
+            number: 'VII',
+            suitSymbol: '🛡️'
+        }
     },
     {
         id: 8,
@@ -109,7 +165,14 @@ const tarotCards = [
         loveScore: 7,
         moodScore: 20,
         keywords: ['力量', '勇气', '耐心', '控制'],
-        emoji: '⚖️'
+        symbol: '🦁',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #F97316, #EA580C)',
+            border: '#C2410C',
+            element: '火',
+            number: 'VIII',
+            suitSymbol: '❤️'
+        }
     },
     {
         id: 9,
@@ -120,7 +183,14 @@ const tarotCards = [
         loveScore: 3,
         moodScore: -10,
         keywords: ['内省', '独处', '智慧', '指引'],
-        emoji: '🔃'
+        symbol: '🏮',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #64748B, #475569)',
+            border: '#334155',
+            element: '土',
+            number: 'IX',
+            suitSymbol: '🔦'
+        }
     },
     {
         id: 10,
@@ -131,7 +201,14 @@ const tarotCards = [
         loveScore: 6,
         moodScore: 10,
         keywords: ['命运', '变化', '循环', '机会'],
-        emoji: '⚰️'
+        symbol: '🎯',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #9333EA, #C084FC)',
+            border: '#7C3AED',
+            element: '火',
+            number: 'X',
+            suitSymbol: '⚙️'
+        }
     },
     {
         id: 11,
@@ -142,7 +219,14 @@ const tarotCards = [
         loveScore: 6,
         moodScore: 5,
         keywords: ['正义', '平衡', '责任', '真相'],
-        emoji: '💪'
+        symbol: '⚖️',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #6B7280, #9CA3AF)',
+            border: '#4B5563',
+            element: '空气',
+            number: 'XI',
+            suitSymbol: '⚔️'
+        }
     },
     {
         id: 12,
@@ -153,7 +237,14 @@ const tarotCards = [
         loveScore: 2,
         moodScore: -15,
         keywords: ['牺牲', '等待', '新视角', '放下'],
-        emoji: '🔙'
+        symbol: '🔄',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #0EA5E9, #0284C7)',
+            border: '#0369A1',
+            element: '水',
+            number: 'XII',
+            suitSymbol: '🌲'
+        }
     },
     {
         id: 13,
@@ -164,7 +255,14 @@ const tarotCards = [
         loveScore: 1,
         moodScore: -20,
         keywords: ['结束', '转变', '重生', '更新'],
-        emoji: '🔄'
+        symbol: '🦋',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #1F2937, #374151)',
+            border: '#111827',
+            element: '水',
+            number: 'XIII',
+            suitSymbol: '🌅'
+        }
     },
     {
         id: 14,
@@ -175,7 +273,14 @@ const tarotCards = [
         loveScore: 8,
         moodScore: 15,
         keywords: ['平衡', '调节', '耐心', '和谐'],
-        emoji: '🌊'
+        symbol: '🏺',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
+            border: '#D97706',
+            element: '水',
+            number: 'XIV',
+            suitSymbol: '🍶'
+        }
     },
     {
         id: 15,
@@ -186,7 +291,14 @@ const tarotCards = [
         loveScore: 0,
         moodScore: -25,
         keywords: ['束缚', '欲望', '成瘾', '限制'],
-        emoji: '👹'
+        symbol: '⛓️',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #991B1B, #7F1D1D)',
+            border: '#450A0A',
+            element: '土',
+            number: 'XV',
+            suitSymbol: '🔥'
+        }
     },
     {
         id: 16,
@@ -197,7 +309,14 @@ const tarotCards = [
         loveScore: 0,
         moodScore: -30,
         keywords: ['突变', '灾难', '觉醒', '改变'],
-        emoji: '🌟'
+        symbol: '⚡',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #7C2D12, #EA580C)',
+            border: '#92400E',
+            element: '火',
+            number: 'XVI',
+            suitSymbol: '🏔️'
+        }
     },
     {
         id: 17,
@@ -208,7 +327,14 @@ const tarotCards = [
         loveScore: 8,
         moodScore: 25,
         keywords: ['希望', '灵感', '治愈', '指引'],
-        emoji: '⭐'
+        symbol: '✨',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
+            border: '#1D4ED8',
+            element: '空气',
+            number: 'XVII',
+            suitSymbol: '💫'
+        }
     },
     {
         id: 18,
@@ -219,7 +345,14 @@ const tarotCards = [
         loveScore: 5,
         moodScore: -5,
         keywords: ['幻觉', '恐惧', '潜意识', '直觉'],
-        emoji: '🌙'
+        symbol: '🌙',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #4C1D95, #7C3AED)',
+            border: '#5B21B6',
+            element: '水',
+            number: 'XVIII',
+            suitSymbol: '🌕'
+        }
     },
     {
         id: 19,
@@ -230,7 +363,14 @@ const tarotCards = [
         loveScore: 10,
         moodScore: 40,
         keywords: ['喜悦', '成功', '清晰', '活力'],
-        emoji: '☀️'
+        symbol: '🌟',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #F59E0B, #FCD34D)',
+            border: '#D97706',
+            element: '火',
+            number: 'XIX',
+            suitSymbol: '☀️'
+        }
     },
     {
         id: 20,
@@ -241,7 +381,14 @@ const tarotCards = [
         loveScore: 7,
         moodScore: 10,
         keywords: ['重生', '清算', '宽恕', '觉醒'],
-        emoji: '🎺'
+        symbol: '📯',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #059669, #10B981)',
+            border: '#047857',
+            element: '火',
+            number: 'XX',
+            suitSymbol: '🌈'
+        }
     },
     {
         id: 21,
@@ -252,7 +399,14 @@ const tarotCards = [
         loveScore: 9,
         moodScore: 35,
         keywords: ['完成', '成就', '整合', '圆满'],
-        emoji: '🌍'
+        symbol: '🌍',
+        cardDesign: {
+            background: 'linear-gradient(135deg, #BE185D, #EC4899)',
+            border: '#9F1239',
+            element: '土',
+            number: 'XXI',
+            suitSymbol: '🎊'
+        }
     }
 ];
 
@@ -607,13 +761,31 @@ function createSelectedCardElement(card, index) {
     const meaning = card.position === 'upright' ? card.uprightMeaning : card.reversedMeaning;
     const positionText = card.position === 'upright' ? '正位' : '逆位';
 
+    // 使用新的卡牌设计
+    const cardDesign = card.cardDesign || {
+        background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
+        border: '#7C3AED',
+        element: '神秘',
+        number: card.id,
+        suitSymbol: card.symbol || '🌟'
+    };
+
     cardDiv.innerHTML = `
-        <div class="tarot-card-back ${card.position === 'reversed' ? 'reversed' : ''}">
-            <div class="text-center">
-                <div class="text-4xl mb-2">${card.emoji}</div>
-                <div class="font-bold">${card.name}</div>
-                <div class="text-sm mt-1">${positionText}</div>
+        <div class="premium-tarot-card ${card.position === 'reversed' ? 'reversed' : ''}"
+             style="background: ${cardDesign.background}; border: 3px solid ${cardDesign.border};">
+            <div class="card-header">
+                <div class="card-number">${cardDesign.number}</div>
+                <div class="card-element">${cardDesign.element}</div>
             </div>
+            <div class="card-symbol">
+                <div class="symbol-main">${card.symbol || '🌟'}</div>
+                <div class="symbol-decoration">${cardDesign.suitSymbol}</div>
+            </div>
+            <div class="card-info">
+                <div class="card-name">${card.name}</div>
+                <div class="card-position">${positionText}</div>
+            </div>
+            <div class="card-glow"></div>
         </div>
         <div class="mt-4 text-center">
             <div class="text-sm text-purple-200">第${card.slot}张牌</div>
@@ -803,17 +975,32 @@ function displayReadingResult() {
 
             <!-- 牌阵结果展示 -->
             <div class="grid md:grid-cols-3 gap-6 mb-12">
-                ${readingResult.cards.map((card, index) => `
-                    <div class="result-card">
-                        <div class="text-center mb-4">
-                            <div class="text-4xl mb-2">${card.emoji}</div>
-                            <h4 class="text-xl font-bold">${card.name}</h4>
-                            <div class="text-sm text-purple-200">${card.position === 'upright' ? '正位' : '逆位'}</div>
+                ${readingResult.cards.map((card, index) => {
+                    const cardDesign = card.cardDesign || {
+                        background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
+                        border: '#7C3AED',
+                        element: '神秘',
+                        number: card.id,
+                        suitSymbol: card.symbol || '🌟'
+                    };
+                    return `
+                    <div class="premium-tarot-card ${card.position === 'reversed' ? 'reversed' : ''}"
+                         style="background: ${cardDesign.background}; border: 3px solid ${cardDesign.border}; min-height: 220px;">
+                        <div class="card-header">
+                            <div class="card-number">${cardDesign.number}</div>
+                            <div class="card-element">${cardDesign.element}</div>
                         </div>
-                        <div class="card-position">${readingResult.interpretation[index].position}</div>
-                        <div class="card-meaning">${readingResult.interpretation[index].interpretation}</div>
+                        <div class="card-symbol">
+                            <div class="symbol-main">${card.symbol || '🌟'}</div>
+                            <div class="symbol-decoration">${cardDesign.suitSymbol}</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-name">${card.name}</div>
+                            <div class="card-position">${card.position === 'upright' ? '正位' : '逆位'}</div>
+                        </div>
+                        <div class="card-glow"></div>
                     </div>
-                `).join('')}
+                `}).join('')}
             </div>
 
             <!-- 详细解读 -->
