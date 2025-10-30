@@ -1427,6 +1427,23 @@ function updateNavigationButtons() {
             nextBtn.classList.add('hidden');
         }
     }
+
+    // 控制首页按钮显示
+    updateHomeButtonVisibility(currentSection);
+}
+
+// 更新首页按钮可见性
+function updateHomeButtonVisibility(currentSection) {
+    const homeButton = document.getElementById('homeButton');
+    if (!homeButton) return;
+
+    if (currentSection === 'hero') {
+        // 在首页时隐藏首页按钮
+        homeButton.style.display = 'none';
+    } else {
+        // 在其他页面时显示首页按钮
+        homeButton.style.display = 'flex';
+    }
 }
 
 // 获取当前可见的页面部分
