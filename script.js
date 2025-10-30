@@ -1222,6 +1222,13 @@ function learnMore() {
 
 // 返回首页
 function backToHome() {
+    // 检查是否已经在首页
+    const currentSection = getCurrentSection();
+    if (currentSection === 'hero') {
+        showToast('已经在首页了', 'info');
+        return;
+    }
+
     // 安全切换到首页
     hideAllSections();
     const heroSection = document.getElementById('heroSection');
