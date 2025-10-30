@@ -803,8 +803,10 @@ function startFortuneSession() {
     addPageTransition(fromSection, fortuneSection);
 
     // 显示问题
-    document.querySelector('#fortuneSection .text-center p').textContent =
-        `正在为"${currentQuestion}"进行塔罗占卜...`;
+    const questionDisplay = document.getElementById('currentQuestionDisplay');
+    if (questionDisplay) {
+        questionDisplay.textContent = `正在为"${currentQuestion}"进行塔罗占卜...`;
+    }
 
     // 初始化抽牌
     selectedCards = [];
