@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博塔罗 - 测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 赛博塔罗测试页面</h1>
+        <div class="test-card">
+            <h2>CSS加载测试</h2>
+            <p>如果你看到这个页面有样式，说明CSS正常加载</p>
+        </div>
+        <div class="test-card">
+            <h2>JavaScript测试</h2>
+            <p id="js-test">JavaScript功能测试中...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('js-test').textContent = '✅ JavaScript正常工作！';
+        console.log('JavaScript加载成功');
+    </script>
+</body>
+</html>
