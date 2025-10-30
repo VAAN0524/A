@@ -300,7 +300,7 @@ function initializeApp() {
     // 页面加载动画
     setTimeout(() => {
         document.body.classList.add('loaded');
-        showToast('欢迎来到赛博塔罗世界！✨', 'success');
+        showToast('欢迎来到塔罗牌世界！✨', 'success');
     }, 100);
 }
 
@@ -874,8 +874,12 @@ function displayReadingResult() {
                     分享结果
                 </button>
                 <button onclick="saveResult()" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
-                    <i class="fas fa-bookmark mr-2"></i>
+                    <i class="fas fa-save mr-2"></i>
                     保存结果
+                </button>
+                <button onclick="toggleFavorite(${readingResult.id})" class="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
+                    <i class="fas fa-star mr-2"></i>
+                    ${readingResult.isFavorite ? '取消收藏' : '添加收藏'}
                 </button>
                 <button onclick="restart()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all">
                     <i class="fas fa-redo mr-2"></i>
@@ -923,7 +927,7 @@ function displayReadingResult() {
 function shareResult() {
     if (navigator.share) {
         navigator.share({
-            title: '赛博塔罗占卜结果',
+            title: '塔罗牌占卜结果',
             text: `我刚刚进行了塔罗占卜！问题：${readingResult.question}\n爱情指数：${readingResult.loveScore}%\n情绪指数：${readingResult.moodScore > 0 ? '+' : ''}${readingResult.moodScore}%`,
             url: window.location.href
         });
@@ -1165,7 +1169,21 @@ function viewHistoryResult(id) {
     const result = historyData.find(item => item.id === id);
     if (result) {
         readingResult = result;
+
+        // 安全切换到结果页面
+        hideAllSections();
+        const resultSection = document.getElementById('resultSection');
+        if (resultSection) {
+            resultSection.classList.remove('hidden');
+        }
+
         displayReadingResult();
+        updateNavigationButtons();
+        updateBreadcrumbNavigation();
+
+        showToast('历史记录已加载', 'success');
+    } else {
+        showToast('找不到该历史记录', 'error');
     }
 }
 
@@ -1184,7 +1202,15 @@ function toggleFavorite(id) {
         result.isFavorite = !result.isFavorite;
         localStorage.setItem('tarotHistory', JSON.stringify(historyData));
         showToast(result.isFavorite ? '已添加到收藏' : '已取消收藏', 'success');
-        showFavorites(); // 刷新显示
+
+        // 更新收藏徽章
+        updateFavoritesBadge();
+
+        // 如果当前在结果页面，刷新结果显示
+        if (readingResult && readingResult.id === id) {
+            readingResult.isFavorite = result.isFavorite;
+            displayReadingResult();
+        }
     }
 }
 
@@ -1218,8 +1244,12 @@ function backToHome() {
 
 // 重新开始
 function restart() {
-    const currentSection = document.getElementById(getCurrentSection() + 'Section');
+    // 安全切换到首页
+    hideAllSections();
     const heroSection = document.getElementById('heroSection');
+    if (heroSection) {
+        heroSection.classList.remove('hidden');
+    }
 
     // 重置所有状态
     currentQuestion = '';
@@ -1227,7 +1257,6 @@ function restart() {
     selectedCards = [];
     readingResult = null;
 
-    addPageTransition(currentSection, heroSection);
     updateNavigationButtons();
     updateBreadcrumbNavigation();
     updateProgressBar(0);
