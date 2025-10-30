@@ -1438,22 +1438,56 @@ function backToHome() {
 
 // 重新开始
 function restart() {
-    // 安全切换到首页
-    hideAllSections();
-    const heroSection = document.getElementById('heroSection');
-    if (heroSection) {
-        heroSection.classList.remove('hidden');
-    }
+    console.log('重启开始，当前状态:', {
+        currentQuestion,
+        currentQuestionType,
+        selectedCards: selectedCards.length,
+        hasResult: !!readingResult
+    });
 
-    // 重置所有状态
+    // 重置所有状态（先重置状态，再切换页面）
     currentQuestion = '';
     currentQuestionType = '';
     selectedCards = [];
     readingResult = null;
 
+    // 安全切换到首页
+    hideAllSections();
+
+    // 使用多个方式确保首页显示
+    const heroSection = document.getElementById('heroSection');
+    if (heroSection) {
+        // 移除hidden类
+        heroSection.classList.remove('hidden');
+
+        // 确保样式正确
+        heroSection.style.display = 'block';
+        heroSection.style.visibility = 'visible';
+
+        console.log('首页section已显示:', heroSection);
+
+        // 强制重排布局
+        setTimeout(() => {
+            heroSection.style.opacity = '1';
+            heroSection.style.transform = 'translateY(0)';
+        }, 100);
+    } else {
+        console.error('找不到首页section元素');
+    }
+
+    // 更新UI状态
     updateNavigationButtons();
     updateBreadcrumbNavigation();
     updateProgressBar(0);
+
+    // 清理可能残留的内容
+    setTimeout(() => {
+        const selectedCardsContainer = document.getElementById('selectedCards');
+        if (selectedCardsContainer) {
+            selectedCardsContainer.innerHTML = '';
+        }
+        console.log('重启完成');
+    }, 200);
 
     showToast('已重新开始，祝你好运！✨', 'info');
 }
@@ -1485,8 +1519,16 @@ function loadSavedData() {
 
 // 工具函数
 function hideAllSections() {
-    document.querySelectorAll('section').forEach(section => {
+    const sections = document.querySelectorAll('section');
+    console.log('隐藏所有section，找到', sections.length, '个section');
+
+    sections.forEach((section, index) => {
         section.classList.add('hidden');
+        // 确保样式被正确应用
+        section.style.display = 'none';
+        section.style.visibility = 'hidden';
+        section.style.opacity = '0';
+        console.log(`隐藏section ${index + 1}: ${section.id}`);
     });
 }
 
