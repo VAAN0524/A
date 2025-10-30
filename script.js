@@ -938,16 +938,28 @@ function shareResult() {
 
 // 保存结果
 function saveResult() {
-    // 保存到历史记录
+    if (!readingResult) {
+        showToast('没有可保存的结果', 'warning');
+        return;
+    }
+
+    // 添加到历史记录
     historyData.unshift(readingResult);
     if (historyData.length > 50) {
         historyData = historyData.slice(0, 50);
     }
 
     // 保存到本地存储
-    localStorage.setItem('tarotHistory', JSON.stringify(historyData));
+    try {
+        localStorage.setItem('tarotHistory', JSON.stringify(historyData));
+        showToast('占卜结果已保存到历史记录', 'success');
 
-    showToast('占卜结果已保存', 'success');
+        // 更新历史记录徽章
+        updateHistoryBadge();
+    } catch (error) {
+        console.error('保存失败:', error);
+        showToast('保存失败，请检查浏览器设置', 'error');
+    }
 }
 
 // 显示历史记录
@@ -955,11 +967,25 @@ function showHistory() {
     const currentSection = document.getElementById(getCurrentSection() + 'Section');
     const historySection = document.getElementById('historySection');
 
-    addPageTransition(currentSection, historySection);
+    // 安全检查
+    if (!historySection) {
+        console.error('历史记录区域未找到');
+        showToast('历史记录页面加载失败', 'error');
+        return;
+    }
+
+    // 简化页面切换，避免复杂的过渡动画
+    hideAllSections();
+    historySection.classList.remove('hidden');
+
     updateNavigationButtons();
     updateBreadcrumbNavigation();
 
     const historyList = document.getElementById('historyList');
+    if (!historyList) {
+        console.error('历史记录列表容器未找到');
+        return;
+    }
 
     if (historyData.length === 0) {
         historyList.innerHTML = `
@@ -967,21 +993,25 @@ function showHistory() {
                 <i class="fas fa-history text-4xl text-purple-400 mb-4"></i>
                 <p class="text-purple-200">还没有占卜记录</p>
                 <p class="text-sm text-purple-300 mt-2">开始你的第一次塔罗占卜吧！</p>
+                <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all transform hover:scale-105 mt-4">
+                    <i class="fas fa-home mr-2"></i>
+                    开始占卜
+                </button>
             </div>
         `;
     } else {
         historyList.innerHTML = historyData.map((item, index) => `
-            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all cursor-pointer history-item" onclick="viewHistoryResult(${item.id})">
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all cursor-pointer history-item" data-id="${item.id}">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
                         <h4 class="font-bold mb-2">${item.question}</h4>
                         <p class="text-sm text-purple-200">${new Date(item.timestamp).toLocaleString('zh-CN')}</p>
                     </div>
                     <div class="flex space-x-2">
-                        <button onclick="event.stopPropagation(); viewHistoryResult(${item.id})" class="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg text-sm transition-colors">
+                        <button onclick="viewHistoryResult(${item.id})" class="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg text-sm transition-colors">
                             查看
                         </button>
-                        <button onclick="event.stopPropagation(); deleteHistory(${item.id})" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-lg text-sm transition-colors">
+                        <button onclick="deleteHistory(${item.id})" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-lg text-sm transition-colors">
                             删除
                         </button>
                     </div>
@@ -992,6 +1022,9 @@ function showHistory() {
                 </div>
             </div>
         `).join('');
+
+        // 重新绑定事件监听器
+        bindHistoryItemEvents();
     }
 }
 
@@ -1000,11 +1033,26 @@ function showFavorites() {
     const currentSection = document.getElementById(getCurrentSection() + 'Section');
     const favoritesSection = document.getElementById('favoritesSection');
 
-    addPageTransition(currentSection, favoritesSection);
+    // 安全检查
+    if (!favoritesSection) {
+        console.error('收藏区域未找到');
+        showToast('收藏页面加载失败', 'error');
+        return;
+    }
+
+    // 简化页面切换，避免复杂的过渡动画
+    hideAllSections();
+    favoritesSection.classList.remove('hidden');
+
     updateNavigationButtons();
     updateBreadcrumbNavigation();
 
     const favoritesList = document.getElementById('favoritesList');
+    if (!favoritesList) {
+        console.error('收藏列表容器未找到');
+        return;
+    }
+
     const favorites = historyData.filter(item => item.isFavorite);
 
     if (favorites.length === 0) {
@@ -1013,11 +1061,15 @@ function showFavorites() {
                 <i class="fas fa-bookmark text-4xl text-purple-400 mb-4"></i>
                 <p class="text-purple-200">还没有收藏的占卜结果</p>
                 <p class="text-sm text-purple-300 mt-2">在占卜结果页面点击收藏按钮来添加收藏</p>
+                <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all transform hover:scale-105 mt-4">
+                    <i class="fas fa-home mr-2"></i>
+                    开始占卜
+                </button>
             </div>
         `;
     } else {
         favoritesList.innerHTML = favorites.map(item => `
-            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all cursor-pointer favorite-item" onclick="viewHistoryResult(${item.id})">
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all cursor-pointer favorite-item" data-id="${item.id}">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
                         <h4 class="font-bold mb-2">${item.question}</h4>
@@ -1038,6 +1090,73 @@ function showFavorites() {
                 </div>
             </div>
         `).join('');
+
+        // 绑定收藏项点击事件
+        bindFavoriteItemEvents();
+    }
+
+    // 更新收藏徽章
+    updateFavoritesBadge();
+
+    showToast('收藏列表已加载', 'success');
+}
+
+// 绑定历史记录项事件
+function bindHistoryItemEvents() {
+    const historyItems = document.querySelectorAll('.history-item');
+    historyItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // 如果点击的是按钮，不触发项目点击事件
+            if (e.target.closest('button')) {
+                return;
+            }
+
+            const id = parseInt(this.dataset.id);
+            viewHistoryResult(id);
+        });
+    });
+}
+
+// 绑定收藏项事件
+function bindFavoriteItemEvents() {
+    const favoriteItems = document.querySelectorAll('.favorite-item');
+    favoriteItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // 如果点击的是按钮，不触发项目点击事件
+            if (e.target.closest('button')) {
+                return;
+            }
+
+            const id = parseInt(this.dataset.id);
+            viewHistoryResult(id);
+        });
+    });
+}
+
+// 更新历史记录徽章
+function updateHistoryBadge() {
+    const historyBadge = document.querySelector('.history-badge');
+    if (historyBadge) {
+        if (historyData.length > 0) {
+            historyBadge.textContent = historyData.length;
+            historyBadge.style.display = 'inline-block';
+        } else {
+            historyBadge.style.display = 'none';
+        }
+    }
+}
+
+// 更新收藏徽章
+function updateFavoritesBadge() {
+    const favoritesCount = historyData.filter(item => item.isFavorite).length;
+    const favoritesBadge = document.querySelector('.favorites-badge');
+    if (favoritesBadge) {
+        if (favoritesCount > 0) {
+            favoritesBadge.textContent = favoritesCount;
+            favoritesBadge.style.display = 'inline-block';
+        } else {
+            favoritesBadge.style.display = 'none';
+        }
     }
 }
 
@@ -1077,10 +1196,13 @@ function learnMore() {
 
 // 返回首页
 function backToHome() {
-    const currentSection = document.getElementById(getCurrentSection() + 'Section');
+    // 安全切换到首页
+    hideAllSections();
     const heroSection = document.getElementById('heroSection');
+    if (heroSection) {
+        heroSection.classList.remove('hidden');
+    }
 
-    addPageTransition(currentSection, heroSection);
     updateNavigationButtons();
     updateBreadcrumbNavigation();
     updateProgressBar(0);
@@ -1090,6 +1212,8 @@ function backToHome() {
     currentQuestionType = '';
     selectedCards = [];
     readingResult = null;
+
+    showToast('已返回首页', 'success');
 }
 
 // 重新开始
