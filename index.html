@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博塔罗 - 他到底喜欢我吗？</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen text-white">
+
+    <!-- 头部导航 -->
+    <header class="bg-black bg-opacity-30 backdrop-blur-md border-b border-white border-opacity-20 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-moon text-2xl text-purple-400 animate-pulse"></i>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        赛博塔罗
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <button onclick="showHistory()" class="hover:text-purple-400 transition-colors relative group" title="查看历史占卜记录">
+                        <i class="fas fa-history mr-1"></i>
+                        <span class="hidden md:inline">历史记录</span>
+                        <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" id="historyBadge" style="display: none;"></span>
+                    </button>
+                    <button onclick="showFavorites()" class="hover:text-purple-400 transition-colors group" title="查看收藏的占卜结果">
+                        <i class="fas fa-bookmark mr-1"></i>
+                        <span class="hidden md:inline">我的收藏</span>
+                    </button>
+                    <button onclick="toggleMusic()" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-full transition-all transform hover:scale-105" title="开关背景音乐">
+                        <i class="fas fa-music mr-1" id="musicIcon"></i>
+                        <span class="hidden md:inline">音乐</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 进度指示器 -->
+    <div id="progressBar" class="fixed top-20 left-0 right-0 h-1 bg-black bg-opacity-20 z-40 hidden">
+        <div class="h-full bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500" id="progressFill" style="width: 0%"></div>
+    </div>
+
+    <!-- 快捷操作按钮 -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3">
+        <button onclick="toggleHelp()" class="bg-purple-600 hover:bg-purple-700 w-12 h-12 rounded-full shadow-lg transition-all transform hover:scale-110 flex items-center justify-center" title="帮助说明">
+            <i class="fas fa-question text-white"></i>
+        </button>
+        <button onclick="scrollToTop()" class="bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-full shadow-lg transition-all transform hover:scale-110 flex items-center justify-center" title="返回顶部">
+            <i class="fas fa-arrow-up text-white"></i>
+        </button>
+    </div>
+
+    <!-- 主页英雄区 -->
+    <section id="heroSection" class="container mx-auto px-4 py-16">
+        <div class="text-center max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                    他到底喜欢我吗？
+                </span>
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 text-purple-200">
+                赛博塔罗帮你探寻爱情的答案，一键解读你的心意
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="startFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg px-8 py-4 rounded-full transition-all transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-sparkles mr-2"></i>
+                    开始占卜
+                </button>
+                <button onclick="learnMore()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white text-lg px-8 py-4 rounded-full transition-all transform hover:scale-105">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    了解塔罗
+                </button>
+            </div>
+        </div>
+
+        <!-- 统计数据 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-purple-400">
+                    <span class="counter" data-target="78">0</span>万+
+                </div>
+                <div class="text-sm text-purple-200">用户信赖</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-pink-400">
+                    <span class="counter" data-target="95">0</span>%
+                </div>
+                <div class="text-sm text-purple-200">准确率</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-400">
+                    <span class="counter" data-target="24">0</span>小时
+                </div>
+                <div class="text-sm text-purple-200">在线服务</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-green-400">
+                    <span class="counter" data-target="1000">0</span>+
+                </div>
+                <div class="text-sm text-purple-200">每日解读</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 问题选择区 -->
+    <section id="questionSection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <!-- 面包屑导航 -->
+            <nav class="flex items-center space-x-2 text-sm mb-8">
+                <button onclick="backToHome()" class="text-purple-300 hover:text-purple-200 transition-colors">
+                    <i class="fas fa-home mr-1"></i>首页
+                </button>
+                <span class="text-purple-400">/</span>
+                <span class="text-purple-200">选择问题类型</span>
+            </nav>
+
+            <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold mb-4">请选择你的问题类型</h3>
+                <p class="text-purple-200">选择一个与你内心困惑最相关的问题类型</p>
+            </div>
+
+            <!-- 问题类型网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div onclick="selectQuestionType('love', '他到底喜欢我吗？')" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-heart text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">爱情占卜</h4>
+                        <p class="text-sm text-purple-200 mb-4">探索感情的真谛</p>
+                        <div class="text-xs text-purple-300 bg-purple-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-fire mr-1"></i>热门选择
+                        </div>
+                    </div>
+                </div>
+                <div onclick="selectQuestionType('career', '我的事业会顺利吗？')" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-briefcase text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">事业发展</h4>
+                        <p class="text-sm text-purple-200 mb-4">指引职业方向</p>
+                        <div class="text-xs text-purple-300 bg-blue-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-chart-line mr-1"></i>职场建议
+                        </div>
+                    </div>
+                </div>
+                <div onclick="selectQuestionType('social', '我的人际关系如何？')" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-users text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">人际关系</h4>
+                        <p class="text-sm text-purple-200 mb-4">分析社交状况</p>
+                        <div class="text-xs text-purple-300 bg-green-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-comments mr-1"></i>社交指导
+                        </div>
+                    </div>
+                </div>
+                <div onclick="selectQuestionType('growth', '我该如何成长？')" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-seedling text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">个人成长</h4>
+                        <p class="text-sm text-purple-200 mb-4">探索内在潜能</p>
+                        <div class="text-xs text-purple-300 bg-yellow-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-brain mr-1"></i>自我提升
+                        </div>
+                    </div>
+                </div>
+                <div onclick="selectQuestionType('daily', '今天的运势如何？')" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-sun text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">日常运势</h4>
+                        <p class="text-sm text-purple-200 mb-4">今日能量指引</p>
+                        <div class="text-xs text-purple-300 bg-orange-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-star mr-1"></i>每日必看
+                        </div>
+                    </div>
+                </div>
+                <div onclick="customQuestion()" class="question-card bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 border border-white border-opacity-20 cursor-pointer hover:bg-opacity-20 transition-all transform hover:scale-105 group">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-edit text-2xl text-white"></i>
+                        </div>
+                        <h4 class="font-bold mb-2 text-lg">自定义问题</h4>
+                        <p class="text-sm text-purple-200 mb-4">提出你的问题</p>
+                        <div class="text-xs text-purple-300 bg-purple-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            <i class="fas fa-magic mr-1"></i>个性化
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 快速提示 -->
+            <div class="mt-8 bg-purple-800 bg-opacity-30 rounded-xl p-6 border border-purple-600 border-opacity-30">
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-lightbulb text-yellow-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold mb-2">💡 小贴士</h4>
+                        <p class="text-sm text-purple-200">选择与当前困扰最相关的问题类型，这样塔罗牌的指引会更加精准和有针对性。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 自定义问题输入 -->
+    <section id="customQuestionSection" class="container mx-auto px-4 py-8 hidden">
+        <div class="max-w-2xl mx-auto">
+            <!-- 面包屑导航 -->
+            <nav class="flex items-center space-x-2 text-sm mb-8">
+                <button onclick="backToHome()" class="text-purple-300 hover:text-purple-200 transition-colors">
+                    <i class="fas fa-home mr-1"></i>首页
+                </button>
+                <span class="text-purple-400">/</span>
+                <button onclick="backToQuestionTypes()" class="text-purple-300 hover:text-purple-200 transition-colors">
+                    <i class="fas fa-list mr-1"></i>问题类型
+                </button>
+                <span class="text-purple-400">/</span>
+                <span class="text-purple-200">自定义问题</span>
+            </nav>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-edit mr-2 text-purple-400"></i>
+                        请输入你的问题
+                    </h3>
+                    <p class="text-purple-200">详细描述你的困惑，让塔罗牌为你提供更精准的指引</p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="customQuestionInput" class="block text-sm font-medium text-purple-200 mb-2">
+                        你的问题 <span class="text-pink-400">*</span>
+                    </label>
+                    <textarea id="customQuestionInput"
+                        class="w-full bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg p-4 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
+                        rows="5"
+                        placeholder="请详细描述你的问题，例如：&#10;• 我和他之间的感情是否还有发展的可能？&#10;• 最近工作遇到了瓶颈，我该如何突破？&#10;• 我该如何平衡家庭和工作的关系？"
+                        maxlength="200"></textarea>
+                    <div class="flex justify-between mt-2 text-sm">
+                        <span class="text-purple-300">最少5个字符，最多200个字符</span>
+                        <span class="text-purple-300">
+                            <span id="charCount">0</span>/200
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 问题建议 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-purple-800 bg-opacity-30 rounded-lg p-4">
+                        <h4 class="font-bold mb-2 text-purple-200">
+                            <i class="fas fa-heart text-pink-400 mr-1"></i>感情问题示例
+                        </h4>
+                        <ul class="text-sm text-purple-300 space-y-1">
+                            <li>• 他对我到底是什么感觉？</li>
+                            <li>• 我们的复合还有希望吗？</li>
+                            <li>• 我该如何表达自己的心意？</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-800 bg-opacity-30 rounded-lg p-4">
+                        <h4 class="font-bold mb-2 text-purple-200">
+                            <i class="fas fa-briefcase text-blue-400 mr-1"></i>事业问题示例
+                        </h4>
+                        <ul class="text-sm text-purple-300 space-y-1">
+                            <li>• 现在是换工作的好时机吗？</li>
+                            <li>• 我该如何提升自己的能力？</li>
+                            <li>• 这个项目会成功吗？</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button onclick="backToQuestionTypes()" class="flex-1 bg-white bg-opacity-20 hover:bg-opacity-30 py-3 rounded-lg transition-all transform hover:scale-105">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        返回选择
+                    </button>
+                    <button onclick="clearQuestion()" class="bg-gray-600 hover:bg-gray-700 py-3 px-4 rounded-lg transition-all">
+                        <i class="fas fa-eraser mr-2"></i>
+                        清空
+                    </button>
+                    <button onclick="submitCustomQuestion()" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 py-3 rounded-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" id="submitBtn">
+                        <i class="fas fa-check mr-2"></i>
+                        确认问题
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 占卜进行区 -->
+    <section id="fortuneSection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <!-- 面包屑导航 -->
+            <nav class="flex items-center space-x-2 text-sm mb-8">
+                <button onclick="backToHome()" class="text-purple-300 hover:text-purple-200 transition-colors">
+                    <i class="fas fa-home mr-1"></i>首页
+                </button>
+                <span class="text-purple-400">/</span>
+                <button onclick="backToQuestionTypes()" class="text-purple-300 hover:text-purple-200 transition-colors" id="breadcrumbQuestionType">
+                    <i class="fas fa-list mr-1"></i>问题类型
+                </button>
+                <span class="text-purple-400">/</span>
+                <span class="text-purple-200">抽牌占卜</span>
+            </nav>
+
+            <!-- 问题显示 -->
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 mb-8 border border-white border-opacity-20">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-question-circle text-3xl text-purple-400 mr-3"></i>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">你的问题</h4>
+                        <p class="text-purple-200 text-lg" id="currentQuestionDisplay">正在选择问题类型...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 占卜进度 -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-purple-200">占卜进度</span>
+                    <span class="text-sm text-purple-200"><span id="progressText">0</span>/3 张牌</span>
+                </div>
+                <div class="w-full bg-black bg-opacity-30 rounded-full h-3">
+                    <div class="h-full bg-gradient-to-r from-purple-400 to-pink-400 rounded-full transition-all duration-500" id="cardProgress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- 牌背展示区 -->
+            <div id="cardDeck" class="flex justify-center mb-12">
+                <div class="relative">
+                    <!-- 塔罗牌背面堆叠效果 -->
+                    <div class="absolute inset-0 w-40 h-60 bg-gradient-to-br from-purple-800 to-indigo-800 rounded-xl shadow-2xl transform rotate-3"></div>
+                    <div class="absolute inset-0 w-40 h-60 bg-gradient-to-br from-purple-800 to-indigo-800 rounded-xl shadow-2xl transform -rotate-2"></div>
+                    <div class="relative w-40 h-60 bg-gradient-to-br from-purple-700 to-pink-700 rounded-xl shadow-2xl border-2 border-purple-400 flex items-center justify-center cursor-pointer transition-all transform hover:scale-105" id="cardDeckMain">
+                        <div class="text-center">
+                            <i class="fas fa-moon text-5xl text-purple-200 mb-2"></i>
+                            <div class="text-sm font-bold">点击抽牌</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抽牌状态提示 -->
+            <div class="text-center mb-8">
+                <p class="text-purple-200 mb-4">请从塔罗牌堆中抽取3张牌</p>
+                <div class="flex items-center justify-center space-x-8 text-sm text-purple-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <span>每张牌都有独特的含义</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-sparkles mr-2"></i>
+                        <span>专注你的问题</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-heart mr-2"></i>
+                        <span>相信你的直觉</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抽牌按钮 -->
+            <div class="text-center mb-12">
+                <button id="drawCardBtn" onclick="drawCard()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-xl px-8 py-4 rounded-full transition-all transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-hand-sparkles mr-2"></i>
+                    抽取一张牌
+                </button>
+            </div>
+
+            <!-- 已选牌展示区 -->
+            <div id="selectedCards" class="flex justify-center space-x-6 mb-12">
+                <!-- 动态生成的已选牌 -->
+            </div>
+
+            <!-- 牌位说明 -->
+            <div id="cardPositions" class="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
+                <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-4 border border-purple-600 border-opacity-30">
+                    <i class="fas fa-clock-rotate-left text-2xl text-purple-400 mb-2"></i>
+                    <h5 class="font-bold text-purple-200">过去</h5>
+                    <p class="text-xs text-purple-300">影响现在的因素</p>
+                </div>
+                <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-4 border border-purple-600 border-opacity-30">
+                    <i class="fas fa-spinner text-2xl text-purple-400 mb-2"></i>
+                    <h5 class="font-bold text-purple-200">现在</h5>
+                    <p class="text-xs text-purple-300">当前的状态</p>
+                </div>
+                <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-4 border border-purple-600 border-opacity-30">
+                    <i class="fas fa-rocket text-2xl text-purple-400 mb-2"></i>
+                    <h5 class="font-bold text-purple-200">未来</h5>
+                    <p class="text-xs text-purple-300">发展的方向</p>
+                </div>
+            </div>
+
+            <!-- 开始解读按钮 -->
+            <div id="startReadingBtn" class="text-center hidden">
+                <button onclick="startReading()" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-xl px-10 py-4 rounded-full transition-all transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-book-open mr-2"></i>
+                    开始解读
+                </button>
+                <p class="text-sm text-purple-200 mt-4">点击查看塔罗牌的指引</p>
+            </div>
+
+            <!-- 重新选择按钮 -->
+            <div class="text-center">
+                <button onclick="resetFortune()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all">
+                    <i class="fas fa-redo mr-2"></i>
+                    重新选择问题
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 结果展示区 -->
+    <section id="resultSection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    塔罗解读结果
+                </h3>
+                <div id="questionDisplay" class="text-xl text-purple-200 mb-4"></div>
+            </div>
+
+            <!-- 牌阵结果展示 -->
+            <div id="readingResult" class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- 动态生成的牌结果 -->
+            </div>
+
+            <!-- 详细解读 -->
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20 mb-8">
+                <h4 class="text-2xl font-bold mb-6">详细解读</h4>
+                <div id="interpretation" class="text-lg leading-relaxed text-purple-100">
+                    <!-- 动态生成的解读内容 -->
+                </div>
+            </div>
+
+            <!-- 建议和预测 -->
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20 mb-8">
+                <h4 class="text-2xl font-bold mb-6">建议与指引</h4>
+                <div id="advice" class="text-lg text-purple-100 mb-4">
+                    <!-- 动态生成的建议 -->
+                </div>
+                <div class="border-t border-white border-opacity-20 pt-4">
+                    <p id="prediction" class="text-purple-200">
+                        <!-- 动态生成的预测 -->
+                    </p>
+                </div>
+            </div>
+
+            <!-- 评分展示 -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-xl font-bold">爱情指数</h5>
+                        <i class="fas fa-heart text-2xl"></i>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-1 bg-white bg-opacity-30 rounded-full h-4">
+                            <div id="loveScoreBar" class="bg-gradient-to-r from-pink-400 to-red-400 h-full rounded-full transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                        <span id="loveScore" class="ml-4 text-2xl font-bold">0%</span>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-600 to-green-600 rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-xl font-bold">情绪指数</h5>
+                        <i class="fas fa-smile text-2xl"></i>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-1 bg-white bg-opacity-30 rounded-full h-4">
+                            <div id="moodScoreBar" class="bg-gradient-to-r from-blue-400 to-green-400 h-full rounded-full transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                        <span id="moodScore" class="ml-4 text-2xl font-bold">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="flex justify-center space-x-4">
+                <button onclick="shareResult()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
+                    <i class="fas fa-share-alt mr-2"></i>
+                    分享结果
+                </button>
+                <button onclick="saveResult()" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
+                    <i class="fas fa-bookmark mr-2"></i>
+                    保存结果
+                </button>
+                <button onclick="restart()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all">
+                    <i class="fas fa-redo mr-2"></i>
+                    重新占卜
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史记录 -->
+    <section id="historySection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-8">占卜历史</h3>
+            <div id="historyList" class="space-y-4">
+                <!-- 动态生成的历史记录 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 收藏列表 -->
+    <section id="favoritesSection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-8">我的收藏</h3>
+            <div id="favoritesList" class="space-y-4">
+                <!-- 动态生成的收藏列表 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 了解塔罗 -->
+    <section id="learnSection" class="container mx-auto px-4 py-16 hidden">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-8">了解塔罗牌</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
+                    <h4 class="text-2xl font-bold mb-4">什么是塔罗牌？</h4>
+                    <p class="text-lg text-purple-100 leading-relaxed">
+                        塔罗牌是一套由78张牌组成的占卜工具，分为大阿尔卡那（22张）和小阿尔卡那（56张）。
+                        每张牌都有独特的象征意义，可以帮助我们洞察内心世界，获得生活的指引。
+                    </p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
+                    <h4 class="text-2xl font-bold mb-4">如何使用塔罗牌？</h4>
+                    <p class="text-lg text-purple-100 leading-relaxed">
+                        占卜时，你需要先明确你的问题，然后集中精神抽取塔罗牌。
+                        每张牌的位置（正位或逆位）都有不同的含义，结合问题背景进行解读。
+                        记住，塔罗牌是引导工具，最终的决定权在你手中。
+                    </p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="backToHome()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-full transition-all transform hover:scale-105">
+                    <i class="fas fa-home mr-2"></i>
+                    返回首页
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 浮动元素装饰 -->
+    <div class="fixed top-20 left-10 text-purple-400 opacity-20 animate-pulse">
+        <i class="fas fa-star text-3xl"></i>
+    </div>
+    <div class="fixed top-40 right-20 text-pink-400 opacity-20 animate-pulse" style="animation-delay: 1s;">
+        <i class="fas fa-moon text-2xl"></i>
+    </div>
+    <div class="fixed bottom-20 left-20 text-blue-400 opacity-20 animate-pulse" style="animation-delay: 2s;">
+        <i class="fas fa-sparkles text-3xl"></i>
+    </div>
+    <div class="fixed bottom-40 right-10 text-yellow-400 opacity-20 animate-pulse" style="animation-delay: 1.5s;">
+        <i class="fas fa-sun text-2xl"></i>
+    </div>
+
+    <!-- 背景音乐控制 -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
