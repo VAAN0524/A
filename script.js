@@ -440,29 +440,136 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 添加页面状态检查，防止空白页面
     setTimeout(() => {
-        const heroSection = document.getElementById('heroSection');
-        const sections = document.querySelectorAll('section');
-        let visibleSectionCount = 0;
+        checkPageState();
+    }, 500);
 
-        sections.forEach(section => {
-            const style = window.getComputedStyle(section);
-            if (style.display !== 'none' &&
-                style.visibility !== 'hidden' &&
-                !section.classList.contains('hidden')) {
-                visibleSectionCount++;
-            }
-        });
+    // 额外的安全检查
+    setTimeout(() => {
+        checkPageState();
+    }, 1500);
 
-        // 如果没有可见的section，确保显示heroSection
-        if (visibleSectionCount === 0 && heroSection) {
-            console.warn('检测到页面空白，自动显示首页');
-            heroSection.classList.remove('hidden');
-            heroSection.style.display = 'block';
-            heroSection.style.visibility = 'visible';
-            heroSection.style.opacity = '1';
-        }
-    }, 1000);
+    // 最终检查
+    setTimeout(() => {
+        checkPageState();
+    }, 3000);
 });
+
+// 检查页面状态，防止空白页面
+function checkPageState() {
+    const heroSection = document.getElementById('heroSection');
+    const sections = document.querySelectorAll('section');
+    let visibleSectionCount = 0;
+
+    sections.forEach(section => {
+        const style = window.getComputedStyle(section);
+        if (style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            !section.classList.contains('hidden')) {
+            visibleSectionCount++;
+        }
+    });
+
+    // 如果没有可见的section，确保显示heroSection
+    if (visibleSectionCount === 0) {
+        console.warn('检测到页面空白，自动显示首页');
+
+        if (heroSection) {
+            // 移除所有hidden类
+            sections.forEach(section => {
+                section.classList.remove('hidden');
+            });
+
+            // 确保heroSection显示
+            heroSection.classList.remove('hidden');
+            heroSection.style.cssText = `
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                position: static !important;
+            `;
+
+            // 强制重排
+            void heroSection.offsetHeight;
+            console.log('页面空白问题已修复');
+        } else {
+            console.error('错误：未找到heroSection，无法修复空白页面');
+            // 尝试通过DOM操作创建紧急恢复按钮
+            createEmergencyRecoveryButton();
+        }
+    } else {
+        console.log('页面状态正常，有', visibleSectionCount, '个可见section');
+    }
+}
+
+// 创建紧急恢复按钮
+function createEmergencyRecoveryButton() {
+    // 检查是否已存在恢复按钮
+    if (document.getElementById('emergencyRecoveryBtn')) {
+        return;
+    }
+
+    const button = document.createElement('button');
+    button.id = 'emergencyRecoveryBtn';
+    button.innerHTML = '🔄 恢复页面';
+    button.className = 'fixed top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full z-50 shadow-lg hover:bg-red-700 transition-all';
+    button.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 9999 !important;
+    `;
+
+    button.onclick = () => {
+        console.log('用户点击紧急恢复按钮');
+        forceShowHomePage();
+        button.remove();
+        showToast('页面已恢复', 'success');
+    };
+
+    document.body.appendChild(button);
+    console.log('紧急恢复按钮已创建');
+}
+
+// 强制显示首页
+function forceShowHomePage() {
+    const sections = document.querySelectorAll('section');
+
+    // 移除所有hidden状态
+    sections.forEach(section => {
+        section.classList.remove('hidden');
+        section.style.display = 'block';
+        section.style.visibility = 'visible';
+        section.style.opacity = '1';
+    });
+
+    // 如果还是找不到heroSection，创建一个临时的
+    let heroSection = document.getElementById('heroSection');
+    if (!heroSection) {
+        heroSection = document.createElement('section');
+        heroSection.id = 'heroSection';
+        heroSection.className = 'container mx-auto px-4 py-16';
+        heroSection.innerHTML = `
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4">🔮 塔罗牌占卜</h2>
+                <p class="text-lg mb-8">页面正在恢复中...</p>
+                <button onclick="startFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full">
+                    开始占卜
+                </button>
+            </div>
+        `;
+        document.body.insertBefore(heroSection, document.body.firstChild);
+    }
+
+    // 确保heroSection显示
+    heroSection.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    `;
+
+    void heroSection.offsetHeight;
+}
 
 // 初始化应用
 function initializeApp() {
@@ -2103,31 +2210,70 @@ function learnMore() {
     document.getElementById('learnSection').classList.remove('hidden');
 }
 
-// 返回首页
+// 返回首页 - 修复空白页面问题
 function backToHome() {
+    console.log('backToHome调用开始');
+
     // 检查是否已经在首页
     const currentSection = getCurrentSection();
+    console.log('当前section:', currentSection);
+
     if (currentSection === 'hero') {
         showToast('已经在首页了', 'info');
         return;
     }
 
-    // 安全切换到首页
-    hideAllSections();
-    const heroSection = document.getElementById('heroSection');
-    if (heroSection) {
-        heroSection.classList.remove('hidden');
-    }
-
-    updateNavigationButtons();
-    updateBreadcrumbNavigation();
-    updateProgressBar(0);
-
-    // 重置状态
+    // 先重置状态
     currentQuestion = '';
     currentQuestionType = '';
     selectedCards = [];
     readingResult = null;
+
+    // 安全切换到首页 - 先获取heroSection，再隐藏其他section
+    const heroSection = document.getElementById('heroSection');
+    const sections = document.querySelectorAll('section');
+
+    console.log('找到heroSection:', !!heroSection);
+    console.log('找到sections:', sections.length);
+
+    // 隐藏除了heroSection之外的所有section
+    sections.forEach(section => {
+        if (section.id !== 'heroSection') {
+            section.classList.add('hidden');
+            section.style.display = 'none';
+            section.style.visibility = 'hidden';
+            section.style.opacity = '0';
+        }
+    });
+
+    // 然后显示heroSection
+    if (heroSection) {
+        console.log('开始显示heroSection');
+
+        // 确保heroSection可见
+        heroSection.classList.remove('hidden');
+
+        // 使用多重保障确保显示
+        heroSection.style.cssText = `
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            position: static !important;
+        `;
+
+        // 强制重排
+        void heroSection.offsetHeight;
+
+        console.log('heroSection显示完成，样式:', heroSection.style.cssText);
+    } else {
+        console.error('未找到heroSection!');
+    }
+
+    // 更新UI状态
+    updateNavigationButtons();
+    updateBreadcrumbNavigation();
+    updateProgressBar(0);
 
     showToast('已返回首页', 'success');
 }
