@@ -1973,6 +1973,9 @@ function showHistory() {
     // 简化页面切换，避免复杂的过渡动画
     hideAllSections();
     historySection.classList.remove('hidden');
+    historySection.style.display = 'block';
+    historySection.style.visibility = 'visible';
+    historySection.style.opacity = '1';
 
     updateNavigationButtons();
     updateBreadcrumbNavigation();
@@ -2039,6 +2042,9 @@ function showFavorites() {
     // 简化页面切换，避免复杂的过渡动画
     hideAllSections();
     favoritesSection.classList.remove('hidden');
+    favoritesSection.style.display = 'block';
+    favoritesSection.style.visibility = 'visible';
+    favoritesSection.style.opacity = '1';
 
     updateNavigationButtons();
     updateBreadcrumbNavigation();
