@@ -9,11 +9,7 @@ let historyData = [];
 let favoritesData = [];
 let musicPlaying = false;
 
-// 语言切换功能 - 这个函数会在language.js中被覆盖
-function toggleLanguage() {
-    // 这个函数的实际实现在language.js中
-    console.log('Language toggle function will be initialized by language.js');
-}
+// 语言切换功能 - 在language.js中定义
 
 // 更新导航按钮文本
 function updateNavigationTexts() {

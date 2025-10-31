@@ -93,7 +93,40 @@ function updateNavigationTexts() {
 document.addEventListener('DOMContentLoaded', function() {
     // 等待更长时间确保所有脚本都加载完成
     setTimeout(function() {
-        // 直接调用updateDynamicTexts，因为它现在应该已经被定义了
+        // 重新定义toggleLanguage函数，确保它正确工作
+        window.toggleLanguage = function() {
+            const newLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+
+            // 调用switchLanguage函数
+            if (typeof switchLanguage === 'function') {
+                switchLanguage(newLanguage);
+            } else {
+                console.error('switchLanguage function not found');
+                return;
+            }
+
+            // 更新当前问题文本
+            if (typeof currentQuestion !== 'undefined' && currentQuestion) {
+                const questionElement = document.getElementById('currentQuestionDisplay');
+                if (questionElement && typeof t === 'function') {
+                    questionElement.textContent = t('diviningFor', { question: currentQuestion });
+                }
+            }
+
+            // 显示切换提示
+            const message = currentLanguage === 'zh' ? '已切换到中文' : 'Switched to English';
+
+            // 显示提示消息
+            if (typeof showToast === 'function') {
+                showToast(message, 'success');
+            } else {
+                alert(message);
+            }
+
+            console.log('Language switched to:', newLanguage);
+        };
+
+        // 直接调用updateDynamicTexts
         try {
             updateDynamicTexts();
         } catch (error) {
