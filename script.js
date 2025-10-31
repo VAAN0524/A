@@ -1193,11 +1193,15 @@ function calculateMoodScore() {
 // 深度塔罗解读系统
 function generateInterpretation() {
     const interpretations = [];
-    const positions = ['过去的情况', '现在的状态', '未来的发展'];
+    const positions = [
+        typeof t === 'function' ? t('pastSituation') : '过去的情况',
+        typeof t === 'function' ? t('currentState') : '现在的状态',
+        typeof t === 'function' ? t('futureDevelopment') : '未来的发展'
+    ];
     const timeContext = {
-        '过去的情况': '在过去的影响层面',
-        '现在的状态': '在当下的能量场中',
-        '未来的发展': '在未来的可能性维度'
+        [typeof t === 'function' ? t('pastSituation') : '过去的情况']: typeof t === 'function' ? '在过去的影响层面' : '在过去的影响层面',
+        [typeof t === 'function' ? t('currentState') : '现在的状态']: typeof t === 'function' ? '在当下的能量场中' : '在当下的能量场中',
+        [typeof t === 'function' ? t('futureDevelopment') : '未来的发展']: typeof t === 'function' ? '在未来的可能性维度' : '在未来的可能性维度'
     };
 
     selectedCards.forEach((card, index) => {
