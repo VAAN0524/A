@@ -2166,13 +2166,55 @@ function updateFavoritesBadge() {
 function viewHistoryResult(id) {
     const result = historyData.find(item => item.id === id);
     if (result) {
-        readingResult = result;
+        // 将selectedCards转换为cards格式以兼容displayReadingResult函数
+        readingResult = {
+            ...result,
+            cards: result.selectedCards || result.cards || [],
+            // 将interpretation字符串转换为数组格式以兼容displayReadingResult函数
+            interpretation: Array.isArray(result.interpretation)
+                ? result.interpretation
+                : [{
+                    position: '综合解读',
+                    interpretation: result.interpretation || '暂无解读内容',
+                    psychological: '',
+                    spiritual: ''
+                }],
+            // 为缺失的字段提供默认值以兼容displayReadingResult函数
+            advice: result.advice || {
+                primary: '暂无具体建议',
+                secondary: '继续关注内心的声音，相信自己的直觉',
+                spiritual: '保持积极的心态，相信塔罗牌的指引',
+                practical: ['建议1: 关注内心的感受', '建议2: 相信自己的直觉'],
+                affirmation: '我有能力面对任何挑战',
+                timeframe: {
+                    advice: '耐心等待时机，相信一切都会是最好的安排'
+                },
+                warning: '',
+                opportunity: ''
+            },
+            prediction: result.prediction || {
+                positive: true,
+                likelihood: '很高',
+                timeframe: '短期内',
+                timeframeAdvice: {
+                    advice: '耐心等待时机，相信一切都会是最好的安排'
+                },
+                keyFactors: ['积极的心态', '内在的力量', '正确的选择'],
+                confidence: 85
+            },
+            loveScore: result.loveScore || 0,
+            moodScore: result.moodScore || 0,
+            questionType: result.questionType || '自定义问题'
+        };
 
         // 安全切换到结果页面
         hideAllSections();
         const resultSection = document.getElementById('resultSection');
         if (resultSection) {
             resultSection.classList.remove('hidden');
+            resultSection.style.display = 'block';
+            resultSection.style.visibility = 'visible';
+            resultSection.style.opacity = '1';
         }
 
         displayReadingResult();
