@@ -438,20 +438,20 @@ document.addEventListener('DOMContentLoaded', function() {
     createMagicParticles();
     loadSavedData();
 
-    // 添加页面状态检查，防止空白页面
-    setTimeout(() => {
-        checkPageState();
-    }, 500);
-
-    // 额外的安全检查
-    setTimeout(() => {
-        checkPageState();
-    }, 1500);
-
-    // 最终检查
-    setTimeout(() => {
-        checkPageState();
-    }, 3000);
+    // 禁用自动页面状态检查 - 干扰正常的页面切换
+    // setTimeout(() => {
+    //     checkPageState();
+    // }, 500);
+    //
+    // // 额外的安全检查
+    // setTimeout(() => {
+    //     checkPageState();
+    // }, 1500);
+    //
+    // // 最终检查
+    // setTimeout(() => {
+    //     checkPageState();
+    // }, 3000);
 });
 
 // 检查页面状态，防止空白页面
