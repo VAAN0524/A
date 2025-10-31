@@ -119,12 +119,12 @@
                     <i class="fas fa-home mr-1"></i>首页
                 </button>
                 <span class="text-purple-400">/</span>
-                <span class="text-purple-200">选择问题类型</span>
+                <span class="text-purple-200 breadcrumb-item" data-i18n="selectQuestionType">选择问题类型</span>
             </nav>
 
             <div class="text-center mb-8">
-                <h3 class="text-3xl font-bold mb-4">请选择你的问题类型</h3>
-                <p class="text-purple-200">选择一个与你内心困惑最相关的问题类型</p>
+                <h3 class="text-3xl font-bold mb-4" data-i18n="selectQuestionType">请选择你的问题类型</h3>
+                <p class="text-purple-200" data-i18n="selectQuestionDesc">选择一个与你内心困惑最相关的问题类型</p>
             </div>
 
             <!-- 问题类型网格 -->
@@ -134,10 +134,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-heart text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">爱情占卜</h4>
-                        <p class="text-sm text-purple-200 mb-4">探索感情的真谛</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="loveDivination">爱情占卜</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="loveDivinationDesc">探索感情的真谛</p>
                         <div class="text-xs text-purple-300 bg-purple-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-fire mr-1"></i>热门选择
+                            <i class="fas fa-fire mr-1"></i><span data-i18n="popularChoice">热门选择</span>
                         </div>
                     </div>
                 </div>
@@ -146,10 +146,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-briefcase text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">事业发展</h4>
-                        <p class="text-sm text-purple-200 mb-4">指引职业方向</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="careerDevelopment">事业发展</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="careerDevelopmentDesc">指引职业方向</p>
                         <div class="text-xs text-purple-300 bg-blue-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-chart-line mr-1"></i>职场建议
+                            <i class="fas fa-chart-line mr-1"></i><span data-i18n="careerAdvice">职场建议</span>
                         </div>
                     </div>
                 </div>
@@ -158,10 +158,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-users text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">人际关系</h4>
-                        <p class="text-sm text-purple-200 mb-4">分析社交状况</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="relationships">人际关系</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="relationshipsDesc">分析社交状况</p>
                         <div class="text-xs text-purple-300 bg-green-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-comments mr-1"></i>社交指导
+                            <i class="fas fa-comments mr-1"></i><span data-i18n="socialGuidance">社交指导</span>
                         </div>
                     </div>
                 </div>
@@ -170,10 +170,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-seedling text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">个人成长</h4>
-                        <p class="text-sm text-purple-200 mb-4">探索内在潜能</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="personalGrowth">个人成长</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="personalGrowthDesc">探索内在潜能</p>
                         <div class="text-xs text-purple-300 bg-yellow-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-brain mr-1"></i>自我提升
+                            <i class="fas fa-brain mr-1"></i><span data-i18n="selfImprovement">自我提升</span>
                         </div>
                     </div>
                 </div>
@@ -182,10 +182,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-sun text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">日常运势</h4>
-                        <p class="text-sm text-purple-200 mb-4">今日能量指引</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="dailyFortune">日常运势</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="dailyFortuneDesc">今日能量指引</p>
                         <div class="text-xs text-purple-300 bg-orange-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-star mr-1"></i>每日必看
+                            <i class="fas fa-star mr-1"></i><span data-i18n="dailyMustSee">每日必看</span>
                         </div>
                     </div>
                 </div>
@@ -194,10 +194,10 @@
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-edit text-2xl text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2 text-lg">自定义问题</h4>
-                        <p class="text-sm text-purple-200 mb-4">提出你的问题</p>
+                        <h4 class="font-bold mb-2 text-lg" data-i18n="customQuestion">自定义问题</h4>
+                        <p class="text-sm text-purple-200 mb-4" data-i18n="customQuestionDesc">提出你的问题</p>
                         <div class="text-xs text-purple-300 bg-purple-800 bg-opacity-30 rounded-full px-3 py-1 inline-block">
-                            <i class="fas fa-magic mr-1"></i>个性化
+                            <i class="fas fa-magic mr-1"></i><span data-i18n="personalized">个性化</span>
                         </div>
                     </div>
                 </div>
@@ -208,8 +208,8 @@
                 <div class="flex items-start space-x-3">
                     <i class="fas fa-lightbulb text-yellow-400 mt-1"></i>
                     <div>
-                        <h4 class="font-bold mb-2">💡 小贴士</h4>
-                        <p class="text-sm text-purple-200">选择与当前困扰最相关的问题类型，这样塔罗牌的指引会更加精准和有针对性。</p>
+                        <h4 class="font-bold mb-2" data-i18n="tips">💡 小贴士</h4>
+                        <p class="text-sm text-purple-200" data-i18n="tipsDesc">选择与当前困扰最相关的问题类型，这样塔罗牌的指引会更加精准和有针对性。</p>
                     </div>
                 </div>
             </div>
@@ -222,36 +222,37 @@
             <!-- 面包屑导航 -->
             <nav class="flex items-center space-x-2 text-sm mb-8">
                 <button onclick="backToHome()" class="text-purple-300 hover:text-purple-200 transition-colors">
-                    <i class="fas fa-home mr-1"></i>首页
+                    <i class="fas fa-home mr-1"></i><span data-i18n="home">首页</span>
                 </button>
                 <span class="text-purple-400">/</span>
                 <button onclick="backToQuestionTypes()" class="text-purple-300 hover:text-purple-200 transition-colors">
-                    <i class="fas fa-list mr-1"></i>问题类型
+                    <i class="fas fa-list mr-1"></i><span data-i18n="selectQuestionType">问题类型</span>
                 </button>
                 <span class="text-purple-400">/</span>
-                <span class="text-purple-200">自定义问题</span>
+                <span class="text-purple-200 breadcrumb-item" data-i18n="customQuestion">自定义问题</span>
             </nav>
 
             <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
                 <div class="text-center mb-8">
-                    <h3 class="text-2xl font-bold mb-4">
+                    <h3 class="text-2xl font-bold mb-4" data-i18n="enterYourQuestion">
                         <i class="fas fa-edit mr-2 text-purple-400"></i>
                         请输入你的问题
                     </h3>
-                    <p class="text-purple-200">详细描述你的困惑，让塔罗牌为你提供更精准的指引</p>
+                    <p class="text-purple-200" data-i18n="questionPlaceholder">详细描述你的困惑，让塔罗牌为你提供更精准的指引</p>
                 </div>
 
                 <div class="mb-6">
-                    <label for="customQuestionInput" class="block text-sm font-medium text-purple-200 mb-2">
+                    <label for="customQuestionInput" class="block text-sm font-medium text-purple-200 mb-2" data-i18n="yourQuestion">
                         你的问题 <span class="text-pink-400">*</span>
                     </label>
                     <textarea id="customQuestionInput"
                         class="w-full bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg p-4 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                         rows="5"
+                        data-i18n-placeholder="questionPlaceholder"
                         placeholder="请详细描述你的问题，例如：&#10;• 我和他之间的感情是否还有发展的可能？&#10;• 最近工作遇到了瓶颈，我该如何突破？&#10;• 我该如何平衡家庭和工作的关系？"
                         maxlength="200"></textarea>
                     <div class="flex justify-between mt-2 text-sm">
-                        <span class="text-purple-300">最少5个字符，最多200个字符</span>
+                        <span class="text-purple-300" data-i18n="questionMinLength">最少5个字符，最多200个字符</span>
                         <span class="text-purple-300">
                             <span id="charCount">0</span>/200
                         </span>
@@ -261,7 +262,7 @@
                 <!-- 问题建议 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div class="bg-purple-800 bg-opacity-30 rounded-lg p-4">
-                        <h4 class="font-bold mb-2 text-purple-200">
+                        <h4 class="font-bold mb-2 text-purple-200" data-i18n="loveQuestions">
                             <i class="fas fa-heart text-pink-400 mr-1"></i>感情问题示例
                         </h4>
                         <ul class="text-sm text-purple-300 space-y-1">
@@ -271,7 +272,7 @@
                         </ul>
                     </div>
                     <div class="bg-purple-800 bg-opacity-30 rounded-lg p-4">
-                        <h4 class="font-bold mb-2 text-purple-200">
+                        <h4 class="font-bold mb-2 text-purple-200" data-i18n="careerQuestions">
                             <i class="fas fa-briefcase text-blue-400 mr-1"></i>事业问题示例
                         </h4>
                         <ul class="text-sm text-purple-300 space-y-1">
@@ -285,15 +286,15 @@
                 <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                     <button onclick="backToQuestionTypes()" class="flex-1 bg-white bg-opacity-20 hover:bg-opacity-30 py-3 rounded-lg transition-all transform hover:scale-105">
                         <i class="fas fa-arrow-left mr-2"></i>
-                        返回选择
+                        <span data-i18n="backToSelection">返回选择</span>
                     </button>
                     <button onclick="clearQuestion()" class="bg-gray-600 hover:bg-gray-700 py-3 px-4 rounded-lg transition-all">
                         <i class="fas fa-eraser mr-2"></i>
-                        清空
+                        <span data-i18n="clear">清空</span>
                     </button>
                     <button onclick="submitCustomQuestion()" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 py-3 rounded-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" id="submitBtn">
                         <i class="fas fa-check mr-2"></i>
-                        确认问题
+                        <span data-i18n="confirmQuestion">确认问题</span>
                     </button>
                 </div>
             </div>
@@ -312,7 +313,7 @@
                     </button>
                     <span class="text-purple-400">/</span>
                     <button onclick="backToQuestionTypes()" class="text-purple-300 hover:text-purple-200 transition-colors" id="breadcrumbQuestionType">
-                        <i class="fas fa-list mr-1"></i>问题类型
+                        <i class="fas fa-list mr-1"></i><span data-i18n="selectQuestionType">问题类型</span>
                     </button>
                     <span class="text-purple-400">/</span>
                     <span class="text-purple-200">抽牌占卜</span>

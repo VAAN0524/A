@@ -54,6 +54,9 @@ const translations = {
         questionMinLength: "最少5个字符，最多200个字符",
         loveQuestions: "感情问题示例",
         careerQuestions: "事业问题示例",
+        yourQuestion: "你的问题",
+        backToSelection: "返回选择",
+        confirmQuestion: "确认问题",
 
         // 抽牌界面
         diviningFor: "正在为\"{question}\"进行塔罗占卜...",
@@ -177,6 +180,9 @@ const translations = {
         questionMinLength: "Minimum 5 characters, maximum 200 characters",
         loveQuestions: "Love Question Examples",
         careerQuestions: "Career Question Examples",
+        yourQuestion: "Your Question",
+        backToSelection: "Back to Selection",
+        confirmQuestion: "Confirm Question",
 
         // Card drawing interface
         diviningFor: "Performing tarot divination for \"{question}\"...",
