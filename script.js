@@ -826,11 +826,13 @@ async function drawCard() {
         return;
     }
 
-    // 禁用抽牌按钮并更新状态
-    const drawBtn = document.getElementById('drawCardBtn');
-    const originalText = drawBtn.innerHTML;
-    drawBtn.disabled = true;
-    drawBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>抽牌中...';
+    // 获取牌背元素并更新状态
+    const cardDeckMain = document.getElementById('cardDeckMain');
+    const originalContent = cardDeckMain.innerHTML;
+
+    // 禁用牌背点击
+    cardDeckMain.style.pointerEvents = 'none';
+    cardDeckMain.innerHTML = '<i class="fas fa-spinner fa-spin text-4xl text-purple-200 mb-2"></i><div class="text-xs font-bold">抽牌中...</div>';
 
     // 显示增强加载效果
     showEnhancedLoading('塔罗牌正在选择你...');
@@ -855,18 +857,20 @@ async function drawCard() {
     // 隐藏加载效果
     hideEnhancedLoading();
 
-    // 重新启用按钮
-    drawBtn.disabled = false;
-    drawBtn.innerHTML = originalText;
+    // 恢复牌背点击和内容
+    cardDeckMain.style.pointerEvents = 'auto';
+    cardDeckMain.innerHTML = originalContent;
 
     // 更新进度条
     const progress = 50 + (selectedCards.length * 16.67); // 50-100%
     updateProgressBar(progress);
 
-    // 如果选够了3张牌，显示开始解读按钮
+    // 如果选够了3张牌，显示开始解读按钮并禁用牌背
     if (selectedCards.length === 3) {
         document.getElementById('startReadingBtn').classList.remove('hidden');
-        document.getElementById('drawCardBtn').disabled = true;
+        cardDeckMain.style.pointerEvents = 'none';
+        cardDeckMain.style.opacity = '0.5';
+        cardDeckMain.innerHTML = '<i class="fas fa-check text-4xl text-green-400 mb-2"></i><div class="text-xs font-bold text-green-400">抽牌完成</div>';
         updateNavigationButtons();
         showToast('✨ 3张牌已抽完，点击开始解读查看结果！', 'success');
     }

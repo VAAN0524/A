@@ -352,29 +352,13 @@
                             <!-- 塔罗牌背面堆叠效果 -->
                             <div class="absolute inset-0 w-32 h-48 bg-gradient-to-br from-purple-800 to-indigo-800 rounded-xl shadow-2xl transform rotate-3"></div>
                             <div class="absolute inset-0 w-32 h-48 bg-gradient-to-br from-purple-800 to-indigo-800 rounded-xl shadow-2xl transform -rotate-2"></div>
-                            <div class="relative w-32 h-48 bg-gradient-to-br from-purple-700 to-pink-700 rounded-xl shadow-2xl border-2 border-purple-400 flex items-center justify-center cursor-pointer transition-all transform hover:scale-105" id="cardDeckMain">
+                            <div class="relative w-32 h-48 bg-gradient-to-br from-purple-700 to-pink-700 rounded-xl shadow-2xl border-2 border-purple-400 flex items-center justify-center cursor-pointer transition-all transform hover:scale-105" id="cardDeckMain" onclick="drawCard()">
                                 <div class="text-center">
                                     <i class="fas fa-moon text-4xl text-purple-200 mb-2"></i>
                                     <div class="text-xs font-bold">点击抽牌</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 抽牌按钮 -->
-                    <div class="text-center mb-6">
-                        <button id="drawCardBtn" onclick="drawCard()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-2xl">
-                            <i class="fas fa-hand-sparkles mr-2"></i>
-                            抽取一张牌
-                        </button>
-                    </div>
-
-                    <!-- 重新选择按钮 -->
-                    <div class="text-center">
-                        <button onclick="resetFortune()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-full transition-all text-sm">
-                            <i class="fas fa-redo mr-2"></i>
-                            重新选择问题
-                        </button>
                     </div>
                 </div>
 
