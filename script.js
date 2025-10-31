@@ -904,7 +904,6 @@ function getRandomCard() {
 // 更新已选牌显示 - 优化为横版布局，卡牌依次出现在左上、中间、右上，移动设备上简化布局
 function updateSelectedCardsDisplay() {
     const container = document.getElementById('selectedCards');
-    container.innerHTML = '';
 
     // 检测是否为移动设备
     const isMobile = window.innerWidth < 768;
@@ -928,33 +927,42 @@ function updateSelectedCardsDisplay() {
         container.style.gap = '30px';
     }
 
-    selectedCards.forEach((card, index) => {
+    // 只添加新的卡牌，而不是重新创建所有卡牌
+    const existingCards = container.querySelectorAll('.tarot-card.selected');
+    const cardsToAdd = selectedCards.slice(existingCards.length);
+
+    cardsToAdd.forEach((card, index) => {
+        const actualIndex = existingCards.length + index;
         setTimeout(() => {
-            const cardElement = createSelectedCardElement(card, index, isMobile);
+            const cardElement = createSelectedCardElement(card, actualIndex, isMobile);
             container.appendChild(cardElement);
 
             // 立即显示卡牌并开始翻转动画
             setTimeout(() => {
                 cardElement.style.opacity = '1';
 
+                // 获取当前卡牌的正逆位状态
+                const currentCard = selectedCards[actualIndex];
+                const cardRotation = currentCard.position === 'reversed' ? 'rotate(180deg)' : 'rotate(0deg)';
+
                 if (isMobile) {
-                    // 移动设备：简单的缩放翻转
-                    cardElement.style.transform = 'scale(1) rotateY(0deg)';
+                    // 移动设备：简单的缩放翻转，考虑正逆位
+                    cardElement.style.transform = `scale(1) rotateY(0deg) ${cardRotation}`;
                 } else {
-                    // 桌面设备：定位到特定位置
+                    // 桌面设备：定位到特定位置，考虑正逆位
                     const positions = [
-                        'translateX(-50%) scale(1) rotateY(0deg)',    // 左上
-                        'translateX(-50%) scale(1) rotateY(0deg)',    // 中间
-                        'translateX(-50%) scale(1) rotateY(0deg)'     // 右上
+                        `translateX(-50%) scale(1) rotateY(0deg) ${cardRotation}`,    // 左上
+                        `translateX(-50%) scale(1) rotateY(0deg) ${cardRotation}`,    // 中间
+                        `translateX(-50%) scale(1) rotateY(0deg) ${cardRotation}`     // 右上
                     ];
-                    const pos = positions[index] || positions[1];
+                    const pos = positions[actualIndex] || positions[1];
                     cardElement.style.transform = pos;
                 }
 
-                // 同时翻转内部卡牌
+                // 同时翻转内部卡牌，保持正逆位状态
                 const innerCard = cardElement.querySelector('.premium-tarot-card');
                 if (innerCard) {
-                    innerCard.style.transform = 'rotateY(0deg)';
+                    innerCard.style.transform = `rotateY(0deg) ${cardRotation}`;
                     innerCard.classList.add('card-flip-in');
                 }
             }, 100);
@@ -1014,27 +1022,31 @@ function createSelectedCardElement(card, index, isMobile = false) {
         ? 'position: static; margin-top: 8px;'
         : 'position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); white-space: nowrap;';
 
+    // 根据正逆位设置旋转角度
+    const cardRotation = card.position === 'reversed' ? 'rotate(180deg)' : 'rotate(0deg)';
+    const isReversed = card.position === 'reversed';
+
     // 使用精美的CSS样式，适应不同设备尺寸
     cardDiv.innerHTML = `
-        <div class="premium-tarot-card compact ${card.position === 'reversed' ? 'reversed' : ''}"
+        <div class="premium-tarot-card compact ${isReversed ? 'reversed' : ''}"
              style="background: ${cardDesign.background};
                     border: 3px solid ${cardDesign.border};
                     width: ${cardSize.width};
                     height: ${cardSize.height};
                     transform-style: preserve-3d;
                     backface-visibility: hidden;
-                    transform: rotateY(180deg);">
-            <div class="card-header">
-                <div class="card-number">${cardDesign.number}</div>
-                <div class="card-element">${cardDesign.element}</div>
+                    transform: rotateY(180deg) ${cardRotation};">
+            <div class="card-header" style="transform: ${cardRotation};">
+                <div class="card-number" style="transform: ${cardRotation};">${cardDesign.number}</div>
+                <div class="card-element" style="transform: ${cardRotation};">${cardDesign.element}</div>
             </div>
-            <div class="card-symbol">
-                <div class="symbol-main">${card.symbol || '🌟'}</div>
-                <div class="symbol-decoration">${cardDesign.suitSymbol}</div>
+            <div class="card-symbol" style="transform: ${cardRotation};">
+                <div class="symbol-main" style="transform: ${cardRotation};">${card.symbol || '🌟'}</div>
+                <div class="symbol-decoration" style="transform: ${cardRotation};">${cardDesign.suitSymbol}</div>
             </div>
-            <div class="card-info">
-                <div class="card-name">${card.name}</div>
-                <div class="card-position">${positionText}</div>
+            <div class="card-info" style="transform: ${cardRotation};">
+                <div class="card-name" style="transform: ${cardRotation};">${card.name}</div>
+                <div class="card-position" style="transform: ${cardRotation}; background: ${isReversed ? 'rgba(239, 68, 68, 0.9)' : 'rgba(34, 197, 94, 0.9)'}; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 10px;">${positionText}</div>
             </div>
             <div class="card-glow"></div>
         </div>
