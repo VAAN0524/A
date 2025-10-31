@@ -138,7 +138,19 @@ const translations = {
         noResultToSave: "没有可保存的结果",
         resultSaved: "结果已保存",
         noFavoritesYet: "还没有收藏的占卜结果",
-        addToFavoritesHint: "在占卜结果页面点击收藏按钮来添加收藏"
+        addToFavoritesHint: "在占卜结果页面点击收藏按钮来添加收藏",
+
+        // 解读详情相关翻译
+        psychologicalInsights: "🧠 心理洞察",
+        spiritualGuidance: "✨ 灵性指引",
+        practicalAdvice: "🎯 实用建议",
+
+        // 牌面位置相关翻译
+        upright: "正位",
+        reversed: "逆位",
+        coreRevelation: "核心启示",
+        shadowMode: "逆位的出现提醒你，需要特别关注",
+        shadowPattern: "的内在模式"
     },
 
     en: {
@@ -279,7 +291,19 @@ const translations = {
         noResultToSave: "No result to save",
         resultSaved: "Result saved",
         noFavoritesYet: "No favorite readings yet",
-        addToFavoritesHint: "Click the favorite button on the reading result page to add favorites"
+        addToFavoritesHint: "Click the favorite button on the reading result page to add favorites",
+
+        // Reading details related translations
+        psychologicalInsights: "🧠 Psychological Insights",
+        spiritualGuidance: "✨ Spiritual Guidance",
+        practicalAdvice: "🎯 Practical Advice",
+
+        // Card position related translations
+        upright: "Upright",
+        reversed: "Reversed",
+        coreRevelation: "Core Revelation",
+        shadowMode: "The reversed appearance reminds you to pay special attention to",
+        shadowPattern: "inner patterns"
     }
 };
 

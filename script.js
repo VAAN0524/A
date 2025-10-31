@@ -1241,12 +1241,17 @@ function generateDepthInterpretation(card, index, position, timeContext) {
     const positionKey = card.position === 'upright' ? 'upright' : 'reversed';
     const coreThemes = getCardThemes(card.name, positionKey);
 
-    let interpretation = `【${position}】${card.name}牌${card.position === 'upright' ? '正位' : '逆位'}\n\n`;
+    const positionText = typeof t === 'function' ? t(card.position === 'upright' ? 'upright' : 'reversed') : (card.position === 'upright' ? '正位' : '逆位');
+    const coreRevelationText = typeof t === 'function' ? t('coreRevelation') : '核心启示';
+    const shadowModeText = typeof t === 'function' ? t('shadowMode') : '逆位的出现提醒你，需要特别关注';
+    const shadowPatternText = typeof t === 'function' ? t('shadowPattern') : '的内在模式';
 
-    interpretation += `🔮 **核心启示**：${timeContext}，${card.name}为你揭示了${coreThemes.main}的生命课题。`;
+    let interpretation = `【${position}】${card.name}牌${positionText}\n\n`;
+
+    interpretation += `🔮 **${coreRevelationText}**：${timeContext}，${card.name}为你揭示了${coreThemes.main}的生命课题。`;
 
     if (card.position === 'reversed') {
-        interpretation += `逆位的出现提醒你，需要特别关注${coreThemes.shadow}的内在模式。`;
+        interpretation += `${shadowModeText}${coreThemes.shadow}${shadowPatternText}。`;
     }
 
     interpretation += `\n\n💫 **深层含义**：${generateLayeredMeaning(card, positionKey)}`;
@@ -1256,6 +1261,105 @@ function generateDepthInterpretation(card, index, position, timeContext) {
 
 // 获取每张牌的心理深层洞察
 function getPsychologicalInsight(card, position) {
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
+    if (isEnglish) {
+        const insights = {
+            '愚人': {
+                upright: 'Your inner child energy is awakening, needing to trust intuition and bravely take new steps. This represents your natural trust and desire to explore the unknown world.',
+                reversed: 'You may be suppressing your true desires, fearing mistakes or judgment. It\'s time to release inner critical voices and reconnect with that innocent courage.'
+            },
+            '魔术师': {
+                upright: 'You have all the resources to transform ideas into reality. Now is the time to use willpower and creativity to actively shape the life you want.',
+                reversed: 'You may feel powerless or lack confidence, doubting your abilities. Remember, true magic comes from affirming your self-worth and persisting in your dreams.'
+            },
+            '女祭司': {
+                upright: 'Your intuitive powers are strengthening, and important wisdom in your subconscious awaits revelation. Maintain stillness and listen to your inner voice.',
+                reversed: 'You may be ignoring your intuition or hiding important emotions. It\'s time to face your inner truth and stop suppressing true feelings.'
+            },
+            '皇后': {
+                upright: 'Abundant energy is flowing toward you. This reminds you to nourish yourself, enjoy the joy of creation, and trust in life\'s inherent generosity.',
+                reversed: 'You may feel insecure or overly dependent on others\' approval. Learn to find value confirmation from within rather than external achievements.'
+            },
+            '皇帝': {
+                upright: 'It\'s time to establish stable structures and clear boundaries. You have the ability to create order, take responsibility, and become the architect of your life.',
+                reversed: 'Control issues or rigid thinking may be limiting you. Learn to find balance between stability and flexibility—true strength comes from adaptability.'
+            },
+            '教皇': {
+                upright: 'Traditional wisdom and spiritual guidance are playing important roles in your life. Whether seeking a mentor or becoming a guide for others, maintain an open mind.',
+                reversed: 'You may be questioning existing belief systems or need to break certain limiting traditions. Trust your inner wisdom—it knows what\'s best for you.'
+            },
+            '恋人': {
+                upright: 'Important choices are before you, requiring heart-centered decisions rather than analytical ones. True connection comes from harmony of values.',
+                reversed: 'You may feel imbalanced in relationships or have made choices that contradict your values. Re-examine what truly matters to you.'
+            },
+            '战车': {
+                upright: 'Through firm will and clear goals, you can overcome obstacles and advance into new territories. Your inner drive is strengthening.',
+                reversed: 'You may feel confused about direction or inner conflicts are draining your energy. Pause to re-determine your goals.'
+            },
+            '力量': {
+                upright: 'True strength comes from inner courage and gentle control. You are learning to tame your inner beasts with love and understanding.',
+                reversed: 'You may doubt your abilities or handle problems aggressively. Remember, gentleness is more powerful than violence.'
+            },
+            '隐士': {
+                upright: 'Inner wisdom is calling you into solitude and reflection. This is a moment to seek inner guidance and connect with soul truth.',
+                reversed: 'You may feel lonely or isolated, but true answers lie within rather than outside. Learn to appreciate the value of solitude.'
+            },
+            '命运之轮': {
+                upright: 'Life\'s cycles are turning, and change is coming. This is a moment to align with universal flow and seize opportunities.',
+                reversed: 'You may resist change or feel fate is unfair. Remember, every ending plants seeds for new beginnings.'
+            },
+            '正义': {
+                upright: 'The law of cause and effect is operating—you need to take responsibility for your choices. This is a moment to seek balance and fairness.',
+                reversed: 'You may face unjust situations or avoid responsibility. Restore balance through honesty and integrity.'
+            },
+            '倒吊人': {
+                upright: 'Sometimes you need to release old perspectives to gain new insights. Temporary sacrifice will bring greater wisdom.',
+                reversed: 'You may be sacrificing for wrong reasons or resisting necessary change. Learn to distinguish meaningful sacrifice from self-torture.'
+            },
+            '死神': {
+                upright: 'An important ending and transformation is occurring. This isn\'t death, but the dissolution of old patterns to make space for new life.',
+                reversed: 'You may resist change or delay inevitable endings. Remember, transformation is a natural process of life\'s growth.'
+            },
+            '节制': {
+                upright: 'Balancing various energies is key now. By reconciling inner opposites, you will find inner harmony.',
+                reversed: 'You may feel imbalanced or extreme. Learn to find the middle way between action and stillness, giving and receiving.'
+            },
+            '恶魔': {
+                upright: 'You may be bound by addiction or negative patterns. This is a moment to face shadows and seek liberation.',
+                reversed: 'Opportunities to break free are approaching. You have the power to release limiting beliefs and behavioral patterns.'
+            },
+            '塔': {
+                upright: 'A moment of sudden change is arriving. Existing structures may collapse, but this creates opportunities for truth to emerge.',
+                reversed: 'You may avoid necessary change or cling to structures that are no longer secure. Allow change to occur naturally.'
+            },
+            '星星': {
+                upright: 'Hope and inspiration are flowing in your life. This is a moment of healing and new beginnings.',
+                reversed: 'You may feel hopeless or have lost faith. Even in darkness, starlight guides your way forward.'
+            },
+            '月亮': {
+                upright: 'Deep emotions and fears from your subconscious are emerging. By facing these, you will gain deeper self-understanding.',
+                reversed: 'You may be troubled by illusions or fears. Learn to distinguish imagination from reality and trust inner guidance.'
+            },
+            '太阳': {
+                upright: 'Joy, clarity, and success are blossoming in your life. This is a moment full of vitality and confidence.',
+                reversed: 'Temporary setbacks or shadows may be obscuring your light. Remember, the sun is always there, waiting for clouds to disperse.'
+            },
+            '审判': {
+                upright: 'A moment of awakening and rebirth is arriving. By forgiving yourself and others, you will gain new beginnings.',
+                reversed: 'You may be overly critical of yourself or others. Learn to accept imperfection and embrace the power of forgiveness.'
+            },
+            '世界': {
+                upright: 'An important cycle is completing. You have integrated experiences and are ready to begin a new journey.',
+                reversed: 'You may feel incomplete or lack achievement. Celebrate progress made, even if the journey hasn\'t ended.'
+            }
+        };
+
+        return insights[card.name]?.[position] || 'Deep self-reflection will help you understand the unique meaning of this card in your life.';
+    }
+
+    // 中文内容
     const insights = {
         '愚人': {
             upright: '你内心的孩童能量正在觉醒，需要相信直觉，勇敢踏出新的一步。这代表着你对未知世界的天然信任和探索欲。',
@@ -1352,6 +1456,39 @@ function getPsychologicalInsight(card, position) {
 
 // 获取灵性指引
 function getSpiritualGuidance(card, position) {
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
+    if (isEnglish) {
+        const guidance = {
+            '愚人': 'Your soul invites you to embark on a new journey, trusting the universe\'s guidance and remaining open to miracles.',
+            '魔术师': 'You are the creator of your reality, and the universe reminds you of your ability to manifest your intentions and desires.',
+            '女祭司': 'Divine feminine wisdom is flowing—receive higher guidance through meditation and stillness.',
+            '皇后': 'Mother Earth is nurturing you—connect with nature and feel life\'s abundance and creativity.',
+            '皇帝': 'It\'s time to establish sacred structures that support your spiritual growth and stable foundations.',
+            '教皇': 'Seek spiritual mentors or become a beacon for others—tradition holds ancient wisdom.',
+            '恋人': 'Heal the illusion of separation through love integration—remember everything is sacred connection.',
+            '战车': 'Master spiritual energy through focused will—let your inner light illuminate the path forward.',
+            '力量': 'Gentle spiritual power is awakening in your heart—learn to transform inner shadows with love and compassion.',
+            '隐士': 'Your inner spiritual light is guiding you—solitude is a precious moment to connect with your higher self.',
+            '命运之轮': 'Universal cycles are operating in your life—align with divine timing and trust in perfection.',
+            '正义': 'Karmic law is balancing your spiritual debts—purify your energy field through integrity and honesty.',
+            '倒吊人': 'By releasing old perspectives, you will see problems from higher dimensions and gain spiritual awakening.',
+            '死神': 'The death of your old self allows your higher version to be reborn—this is a sacred transformation process.',
+            '节制': 'Harmonize inner yin-yang energies—achieve spiritual harmony and unity through balance.',
+            '恶魔': 'Face your shadow side—transform binding negative patterns through awareness and acceptance.',
+            '塔': 'The collapse of old structures allows truth\'s light to shine in—this is the thunder of spiritual awakening.',
+            '星星': 'The star of hope shines in your night sky—the universe is guiding you toward a bright path.',
+            '月亮': 'Spiritual wisdom in your subconscious is awakening—learn to navigate mystery and trust intuitive guidance.',
+            '太阳': 'Your spiritual light is blooming fully—this is a moment filled with joy, clarity, and power.',
+            '审判': 'Spiritual awakening is calling you—gain rebirth and freedom through forgiveness and acceptance.',
+            '世界': 'You have completed an important spiritual cycle—prepare to integrate wisdom and begin a new sacred journey.'
+        };
+
+        return guidance[card.name] || 'This card is lighting a special lamp for your soul—follow its light and discover unexpected scenery.';
+    }
+
+    // 中文内容
     const guidance = {
         '愚人': '灵魂邀请你踏上一段新的旅程，相信宇宙的引导，保持对奇迹的开放态度。',
         '魔术师': '你是自己现实的创造者，宇宙正在提醒你有能力显化你的意图和愿望。',
@@ -1382,6 +1519,83 @@ function getSpiritualGuidance(card, position) {
 
 // 获取实用建议
 function getPracticalAdvice(card, position) {
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
+    if (isEnglish) {
+        const advice = {
+            '愚人': position === 'upright'
+                ? 'Try some completely new experiences, even if they seem "irrational." Trust your first instincts.'
+                : 'Don\'t overthink—sometimes the best action is to simply begin.',
+            '魔术师': position === 'upright'
+                ? 'List your goals, then take concrete first steps. You have all the resources you need.'
+                : 'Focus on what you can convince yourself of, rather than what you can convince others of.',
+            '女祭司': position === 'upright'
+                ? 'Set aside time daily for meditation or stillness. Record your dreams and intuitive feelings.'
+                : 'Don\'t ignore inner feelings of unease—they often contain important information.',
+            '皇后': position === 'upright'
+                ? 'Take care of your body, create comfortable environments, and allow yourself to receive care from others.'
+                : 'Learn to nourish yourself first, before giving to others.',
+            '皇帝': position === 'upright'
+                ? 'Establish clear daily routines and long-term goals. Taking responsibility brings more freedom.'
+                : 'Learn to set healthy boundaries and don\'t try to control everything.',
+            '教皇': position === 'upright'
+                ? 'Seek trustworthy mentors or join relevant learning communities.'
+                : 'Question old beliefs and rules that no longer serve you.',
+            '恋人': position === 'upright'
+                ? 'Make decisions based on your values, not on others\' expectations.'
+                : 'Face your relationship situations honestly; make difficult but authentic choices when necessary.',
+            '战车': position === 'upright'
+                ? 'Stay focused on your goals and avoid distractions. Self-discipline will bring victory.'
+                : 'Sometimes the fastest way forward is to stop and reconfirm your direction.',
+            '力量': position === 'upright'
+                ? 'Handle conflicts gently—patience and compassion are more effective than force.'
+                : 'Learn to accept your vulnerabilities; true strength comes from inner peace.',
+            '隐士': position === 'upright'
+                ? 'Schedule alone time for deep thinking, away from external distractions.'
+                : 'Don\'t make rushed decisions out of loneliness; wait patiently for better timing.',
+            '命运之轮': position === 'upright'
+                ? 'Seize new opportunities as they appear, even if they seem sudden.'
+                : 'Accept that change is part of life; don\'t resist natural cycles.',
+            '正义': position === 'upright'
+                ? 'Take responsibility for your decisions and ensure actions align with your values.'
+                : 'When facing injustice, maintain honesty and integrity to restore balance.',
+            '倒吊人': position === 'upright'
+                ? 'Try viewing problems from different angles—new discoveries may emerge.'
+                : 'Ensure your sacrifices are meaningful; don\'t pay for wrong reasons.',
+            '死神': position === 'upright'
+                ? 'Actively clear what you no longer need to make space for the new.'
+                : 'Learn to accept endings; every ending nurtures a new beginning.',
+            '节制': position === 'upright'
+                ? 'Find balance between different aspects; avoid extreme behaviors.'
+                : 'Wait patiently for the right timing; don\'t rush results.',
+            '恶魔': position === 'upright'
+                ? 'Identify and face your dependencies or negative patterns; seek professional help.'
+                : 'Break unhealthy habits or relationships to regain your freedom.',
+            '塔': position === 'upright'
+                ? 'Prepare for unexpected changes—they may bring better results.'
+                : 'Don\'t resist necessary changes; let old structures collapse naturally.',
+            '星星': position === 'upright'
+                ? 'Maintain hope even during difficult times; trust in a better tomorrow.'
+                : 'Reconnect with your dreams and ideals; don\'t lose faith.',
+            '月亮': position === 'upright'
+                ? 'Explore your subconscious; don\'t ignore intuition and dreams.'
+                : 'Learn to distinguish imagination from reality; avoid being trapped by fear.',
+            '太阳': position === 'upright'
+                ? 'Fully express your talents and confidence—now is the time for success.'
+                : 'Don\'t let temporary setbacks affect your long-term goals.',
+            '审判': position === 'upright'
+                ? 'Forgive past mistakes and give yourself a fresh start.'
+                : 'Stop self-criticism; accept imperfection as part of growth.',
+            '世界': position === 'upright'
+                ? 'Celebrate your achievements and prepare for the next journey with confidence.'
+                : 'Acknowledge lessons learned and use them as stepping stones for future growth.'
+        };
+
+        return advice[card.name] || 'Trust your intuition and take practical steps that align with your authentic self.';
+    }
+
+    // 中文内容
     const advice = {
         '愚人': position === 'upright'
             ? '尝试一些全新的体验，即使看起来有些"不理性"。相信你的第一直觉。'
@@ -1877,21 +2091,21 @@ function displayReadingResult() {
 
                                 ${interp.psychological ? `
                                     <div class="mt-4 pt-4 border-t border-purple-700 border-opacity-50">
-                                        <h6 class="font-semibold text-purple-200 mb-2">🧠 心理洞察</h6>
+                                        <h6 class="font-semibold text-purple-200 mb-2">${typeof t === 'function' ? t('psychologicalInsights') : '🧠 心理洞察'}</h6>
                                         <p class="text-purple-100">${interp.psychological}</p>
                                     </div>
                                 ` : ''}
 
                                 ${interp.spiritual ? `
                                     <div class="mt-4 pt-4 border-t border-purple-700 border-opacity-50">
-                                        <h6 class="font-semibold text-purple-200 mb-2">✨ 灵性指引</h6>
+                                        <h6 class="font-semibold text-purple-200 mb-2">${typeof t === 'function' ? t('spiritualGuidance') : '✨ 灵性指引'}</h6>
                                         <p class="text-purple-100">${interp.spiritual}</p>
                                     </div>
                                 ` : ''}
 
                                 ${interp.practical ? `
                                     <div class="mt-4 pt-4 border-t border-purple-700 border-opacity-50">
-                                        <h6 class="font-semibold text-purple-200 mb-2">🎯 实用建议</h6>
+                                        <h6 class="font-semibold text-purple-200 mb-2">${typeof t === 'function' ? t('practicalAdvice') : '🎯 实用建议'}</h6>
                                         <p class="text-purple-100">${interp.practical}</p>
                                     </div>
                                 ` : ''}
