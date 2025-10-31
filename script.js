@@ -494,7 +494,7 @@ function checkPageState() {
 
     // 如果没有可见的section，确保显示heroSection
     if (visibleSectionCount === 0) {
-        console.warn('检测到页面空白，自动显示首页');
+        console.warn('Blank page detected, automatically showing home page');
 
         if (heroSection) {
             // 移除所有hidden类
@@ -514,14 +514,14 @@ function checkPageState() {
 
             // 强制重排
             void heroSection.offsetHeight;
-            console.log('页面空白问题已修复');
+            console.log('Blank page issue fixed');
         } else {
-            console.error('错误：未找到heroSection，无法修复空白页面');
+            console.error('Error: heroSection not found, unable to fix blank page');
             // 尝试通过DOM操作创建紧急恢复按钮
             createEmergencyRecoveryButton();
         }
     } else {
-        console.log('页面状态正常，有', visibleSectionCount, '个可见section');
+        console.log('Page status normal, has', visibleSectionCount, 'visible sections');
     }
 }
 
@@ -534,7 +534,7 @@ function createEmergencyRecoveryButton() {
 
     const button = document.createElement('button');
     button.id = 'emergencyRecoveryBtn';
-    button.innerHTML = '🔄 恢复页面';
+    button.innerHTML = typeof t === 'function' ? '🔄 ' + t('recoverPage') : '🔄 恢复页面';
     button.className = 'fixed top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full z-50 shadow-lg hover:bg-red-700 transition-all';
     button.style.cssText = `
         display: block !important;
@@ -547,7 +547,7 @@ function createEmergencyRecoveryButton() {
         console.log('用户点击紧急恢复按钮');
         forceShowHomePage();
         button.remove();
-        showToast('页面已恢复', 'success');
+        showToast(typeof t === 'function' ? t('pageRecovered') : '页面已恢复', 'success');
     };
 
     document.body.appendChild(button);
@@ -577,7 +577,7 @@ function forceShowHomePage() {
                 <h2 class="text-3xl font-bold mb-4">🔮 塔罗牌占卜</h2>
                 <p class="text-lg mb-8">页面正在恢复中...</p>
                 <button onclick="startFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full">
-                    开始占卜
+                    ${typeof t === 'function' ? t('startDivination') : '开始占卜'}
                 </button>
             </div>
         `;
@@ -631,7 +631,7 @@ function initializeApp() {
     // 页面加载动画
     setTimeout(() => {
         document.body.classList.add('loaded');
-        showToast('欢迎来到塔罗牌世界！✨', 'success');
+        showToast(typeof t === 'function' ? t('welcomeMessage') : '欢迎来到塔罗牌世界！✨', 'success');
     }, 100);
 }
 
@@ -853,7 +853,11 @@ function startFortuneSession() {
 // 抽牌
 async function drawCard() {
     if (selectedCards.length >= 3) {
+        if (typeof t === 'function') {
+        showToast(t('cardsSelected', { count: '3' }), 'info');
+    } else {
         showToast('已经选择了3张牌', 'info');
+    }
         return;
     }
 
@@ -866,7 +870,11 @@ async function drawCard() {
     cardDeckMain.innerHTML = '<i class="fas fa-spinner fa-spin text-4xl text-purple-200 mb-2"></i><div class="text-xs font-bold">抽牌中...</div>';
 
     // 显示增强加载效果
-    showEnhancedLoading('塔罗牌正在选择你...');
+    if (typeof t === 'function') {
+        showEnhancedLoading(t('tarotIsChoosing'));
+    } else {
+        showEnhancedLoading('塔罗牌正在选择你...');
+    }
 
     // 模拟抽牌动画
     await animateCardDraw();
@@ -901,9 +909,11 @@ async function drawCard() {
         document.getElementById('startReadingBtn').classList.remove('hidden');
         cardDeckMain.style.pointerEvents = 'none';
         cardDeckMain.style.opacity = '0.5';
-        cardDeckMain.innerHTML = '<i class="fas fa-check text-4xl text-green-400 mb-2"></i><div class="text-xs font-bold text-green-400">抽牌完成</div>';
+        cardDeckMain.innerHTML = typeof t === 'function' ?
+            `<i class="fas fa-check text-4xl text-green-400 mb-2"></i><div class="text-xs font-bold text-green-400">${t('drawComplete')}</div>` :
+            '<i class="fas fa-check text-4xl text-green-400 mb-2"></i><div class="text-xs font-bold text-green-400">抽牌完成</div>';
         updateNavigationButtons();
-        showToast('✨ 3张牌已抽完，点击开始解读查看结果！', 'success');
+        showToast(typeof t === 'function' ? '✨ ' + t('threeCardsComplete') : '✨ 3张牌已抽完，点击开始解读查看结果！', 'success');
     }
 }
 
@@ -1112,11 +1122,14 @@ async function startReading() {
 // 显示加载状态
 function showLoadingState() {
     const resultSection = document.getElementById('resultSection');
+    const loadingTitle = typeof t === 'function' ? t('pleaseWait') : '请稍候，神秘的指引正在显现...';
+    const loadingSubtitle = typeof t === 'function' ? t('tarotIsChoosing') : '塔罗牌正在解读中...';
+
     resultSection.innerHTML = `
         <div class="text-center py-16">
             <div class="loading-spinner mx-auto mb-8"></div>
-            <h3 class="text-2xl font-bold mb-4">塔罗牌正在解读中...</h3>
-            <p class="text-purple-200">请稍候，神秘的指引正在显现</p>
+            <h3 class="text-2xl font-bold mb-4">${loadingSubtitle}</h3>
+            <p class="text-purple-200">${loadingTitle}</p>
         </div>
     `;
 }
@@ -1849,7 +1862,7 @@ function displayReadingResult() {
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
                     <h4 class="text-3xl font-bold mb-6 flex items-center">
                         <span class="text-2xl mr-3">🔮</span>
-                        深度塔罗解读
+                        ${typeof t === 'function' ? t('deepTarotReading') : '深度塔罗解读'}
                     </h4>
 
                     <div class="space-y-6">
@@ -2013,19 +2026,19 @@ function displayReadingResult() {
             <div class="flex justify-center space-x-4">
                 <button onclick="shareResult()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-share-alt mr-2"></i>
-                    分享结果
+                    ${typeof t === 'function' ? t('shareResult') : '分享结果'}
                 </button>
                 <button onclick="saveResult()" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-save mr-2"></i>
-                    保存结果
+                    ${typeof t === 'function' ? t('saveResult') : '保存结果'}
                 </button>
                 <button onclick="toggleFavorite(${readingResult.id})" class="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-star mr-2"></i>
-                    ${readingResult.isFavorite ? '取消收藏' : '添加收藏'}
+                    ${readingResult.isFavorite ? (typeof t === 'function' ? t('removedFromFavorites') : '取消收藏') : (typeof t === 'function' ? t('addToFavorites') : '添加收藏')}
                 </button>
                 <button onclick="restart()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all">
                     <i class="fas fa-redo mr-2"></i>
-                    重新占卜
+                    ${typeof t === 'function' ? t('newDivination') : '重新占卜'}
                 </button>
             </div>
         </div>
@@ -2061,7 +2074,7 @@ function displayReadingResult() {
 
     // 显示完成提示
     setTimeout(() => {
-        showToast('🔮 塔罗解读已完成，希望对你有帮助！', 'success');
+        showToast(typeof t === 'function' ? '🔮 ' + t('readingCompleted') + '，希望对你有帮助！' : '🔮 塔罗解读已完成，希望对你有帮助！', 'success');
     }, 2000);
 }
 
@@ -2077,7 +2090,7 @@ function shareResult() {
         // 复制到剪贴板
         const text = `我刚刚进行了塔罗占卜！\n问题：${readingResult.question}\n顺利指数：${readingResult.loveScore}%\n情绪指数：${readingResult.moodScore > 0 ? '+' : ''}${readingResult.moodScore}%`;
         navigator.clipboard.writeText(text).then(() => {
-            showToast('占卜结果已复制到剪贴板', 'success');
+            showToast(typeof t === 'function' ? t('shareCopied') : '占卜结果已复制到剪贴板', 'success');
         });
     }
 }
@@ -2085,7 +2098,7 @@ function shareResult() {
 // 保存结果
 function saveResult() {
     if (!readingResult) {
-        showToast('没有可保存的结果', 'warning');
+        showToast(typeof t === 'function' ? t('noResultToSave') : '没有可保存的结果', 'warning');
         return;
     }
 
@@ -2098,7 +2111,7 @@ function saveResult() {
     // 保存到本地存储
     try {
         localStorage.setItem('tarotHistory', JSON.stringify(historyData));
-        showToast('占卜结果已保存到历史记录', 'success');
+        showToast(typeof t === 'function' ? t('resultSaved') : '占卜结果已保存到历史记录', 'success');
 
         // 更新历史记录徽章
         updateHistoryBadge();
@@ -2144,7 +2157,7 @@ function showHistory() {
                 <p class="text-sm text-purple-300 mt-2">开始你的第一次塔罗占卜吧！</p>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all transform hover:scale-105 mt-4">
                     <i class="fas fa-home mr-2"></i>
-                    开始占卜
+                    ${typeof t === 'function' ? t('startDivination') : '开始占卜'}
                 </button>
             </div>
         `;
@@ -2211,11 +2224,11 @@ function showFavorites() {
         favoritesList.innerHTML = `
             <div class="text-center py-8">
                 <i class="fas fa-bookmark text-4xl text-purple-400 mb-4"></i>
-                <p class="text-purple-200">还没有收藏的占卜结果</p>
-                <p class="text-sm text-purple-300 mt-2">在占卜结果页面点击收藏按钮来添加收藏</p>
+                <p class="text-purple-200">${typeof t === 'function' ? t('noFavoritesYet') : '还没有收藏的占卜结果'}</p>
+                <p class="text-sm text-purple-300 mt-2">${typeof t === 'function' ? t('addToFavoritesHint') : '在占卜结果页面点击收藏按钮来添加收藏'}</p>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all transform hover:scale-105 mt-4">
                     <i class="fas fa-home mr-2"></i>
-                    开始占卜
+                    ${typeof t === 'function' ? t('startDivination') : '开始占卜'}
                 </button>
             </div>
         `;
@@ -2406,8 +2419,33 @@ function toggleFavorite(id) {
 
 // 了解塔罗
 function learnMore() {
+    console.log('learnMore被调用');
     hideAllSections();
-    document.getElementById('learnSection').classList.remove('hidden');
+
+    const learnSection = document.getElementById('learnSection');
+    if (learnSection) {
+        learnSection.classList.remove('hidden');
+        // 移除所有内联样式，确保section可见
+        learnSection.style.display = 'block';
+        learnSection.style.visibility = 'visible';
+        learnSection.style.opacity = '1';
+        console.log('learnSection已显示');
+    } else {
+        console.error('learnSection未找到');
+    }
+
+    // 显示首页按钮（隐藏logo）
+    const homeButton = document.getElementById('homeButton');
+    const logoContainer = document.querySelector('.flex.items-center.space-x-2');
+    if (homeButton) {
+        homeButton.style.display = 'flex';
+    }
+    if (logoContainer) {
+        logoContainer.style.display = 'none';
+    }
+
+    // 滚动到顶部
+    window.scrollTo(0, 0);
 }
 
 // 返回首页 - 修复空白页面问题
@@ -2910,7 +2948,9 @@ function optimizeCardDrawingFlow() {
             drawBtn.innerHTML = `<i class="fas fa-hand-sparkles mr-2"></i>抽取第${selectedCards.length + 1}张牌`;
             drawBtn.disabled = false;
         } else {
-            drawBtn.innerHTML = '<i class="fas fa-check mr-2"></i>已抽完3张牌';
+            drawBtn.innerHTML = typeof t === 'function' ?
+            `<i class="fas fa-check mr-2"></i>${t('drawComplete')}` :
+            '<i class="fas fa-check mr-2"></i>已抽完3张牌';
             drawBtn.disabled = true;
         }
     }

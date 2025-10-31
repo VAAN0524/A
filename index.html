@@ -20,11 +20,11 @@
                 <div class="flex items-center space-x-4">
                     <button id="homeButton" onclick="backToHome()" class="hover:text-purple-400 transition-colors group" title="返回首页" style="display: none;">
                         <i class="fas fa-home text-xl group-hover:scale-110 transition-transform"></i>
-                        <span class="hidden md:inline ml-1">首页</span>
+                        <span class="hidden md:inline ml-1" data-i18n="home">首页</span>
                     </button>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-moon text-2xl text-purple-400 animate-pulse"></i>
-                        <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent" data-i18n="tarotTitle">
                             塔罗牌
                         </h1>
                     </div>
@@ -87,25 +87,25 @@
                 <div class="text-3xl font-bold text-purple-400">
                     <span class="counter" data-target="78">0</span>万+
                 </div>
-                <div class="text-sm text-purple-200">用户信赖</div>
+                <div class="text-sm text-purple-200" data-i18n="usersTrust">用户信赖</div>
             </div>
             <div class="text-center">
                 <div class="text-3xl font-bold text-pink-400">
                     <span class="counter" data-target="95">0</span>%
                 </div>
-                <div class="text-sm text-purple-200">准确率</div>
+                <div class="text-sm text-purple-200" data-i18n="accuracy">准确率</div>
             </div>
             <div class="text-center">
                 <div class="text-3xl font-bold text-blue-400">
                     <span class="counter" data-target="24">0</span>小时
                 </div>
-                <div class="text-sm text-purple-200">在线服务</div>
+                <div class="text-sm text-purple-200" data-i18n="onlineService">在线服务</div>
             </div>
             <div class="text-center">
                 <div class="text-3xl font-bold text-green-400">
                     <span class="counter" data-target="1000">0</span>+
                 </div>
-                <div class="text-sm text-purple-200">每日解读</div>
+                <div class="text-sm text-purple-200" data-i18n="dailyReadings">每日解读</div>
             </div>
         </div>
     </section>
@@ -116,7 +116,7 @@
             <!-- 面包屑导航 -->
             <nav class="flex items-center space-x-2 text-sm mb-8">
                 <button onclick="backToHome()" class="text-purple-300 hover:text-purple-200 transition-colors">
-                    <i class="fas fa-home mr-1"></i>首页
+                    <i class="fas fa-home mr-1"></i><span data-i18n="home">首页</span>
                 </button>
                 <span class="text-purple-400">/</span>
                 <span class="text-purple-200 breadcrumb-item" data-i18n="selectQuestionType">选择问题类型</span>
@@ -485,7 +485,7 @@
                 <h3 class="text-3xl font-bold mb-4" data-i18n="history">占卜历史</h3>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i>
-                    返回首页
+                    <span data-i18n="backToHome">返回首页</span>
                 </button>
             </div>
             <div id="historyList" class="space-y-4">
@@ -501,7 +501,7 @@
                 <h3 class="text-3xl font-bold mb-4" data-i18n="favorites">我的收藏</h3>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i>
-                    返回首页
+                    <span data-i18n="backToHome">返回首页</span>
                 </button>
             </div>
             <div id="favoritesList" class="space-y-4">
@@ -516,15 +516,15 @@
             <h3 class="text-3xl font-bold text-center mb-8" data-i18n="learnTarot">了解塔罗牌</h3>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
-                    <h4 class="text-2xl font-bold mb-4">什么是塔罗牌？</h4>
-                    <p class="text-lg text-purple-100 leading-relaxed">
+                    <h4 class="text-2xl font-bold mb-4" data-i18n="whatIsTarot">什么是塔罗牌？</h4>
+                    <p class="text-lg text-purple-100 leading-relaxed" data-i18n="whatIsTarotDesc">
                         塔罗牌是一套由78张牌组成的占卜工具，分为大阿尔卡那（22张）和小阿尔卡那（56张）。
                         每张牌都有独特的象征意义，可以帮助我们洞察内心世界，获得生活的指引。
                     </p>
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
-                    <h4 class="text-2xl font-bold mb-4">如何使用塔罗牌？</h4>
-                    <p class="text-lg text-purple-100 leading-relaxed">
+                    <h4 class="text-2xl font-bold mb-4" data-i18n="howToUseTarot">如何使用塔罗牌？</h4>
+                    <p class="text-lg text-purple-100 leading-relaxed" data-i18n="howToUseTarotDesc">
                         占卜时，你需要先明确你的问题，然后集中精神抽取塔罗牌。
                         每张牌的位置（正位或逆位）都有不同的含义，结合问题背景进行解读。
                         记住，塔罗牌是引导工具，最终的决定权在你手中。
@@ -534,7 +534,7 @@
             <div class="text-center mt-8">
                 <button onclick="backToHome()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i>
-                    返回首页
+                    <span data-i18n="backToHome">返回首页</span>
                 </button>
             </div>
         </div>

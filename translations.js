@@ -3,6 +3,7 @@ const translations = {
     zh: {
         // 页面标题
         pageTitle: "塔罗牌 - 他到底喜欢我吗？",
+        tarotTitle: "塔罗牌",
 
         // 导航和按钮
         home: "首页",
@@ -17,11 +18,15 @@ const translations = {
         mainSubtitle: "塔罗牌帮你探寻爱情的答案，一键解读你的心意",
         startDivination: "开始占卜",
         learnTarot: "了解塔罗",
+        whatIsTarot: "什么是塔罗牌？",
+        whatIsTarotDesc: "塔罗牌是一套由78张牌组成的占卜工具，分为大阿尔卡那（22张）和小阿尔卡那（56张）。每张牌都有独特的象征意义，可以帮助我们洞察内心世界，获得生活的指引。",
+        howToUseTarot: "如何使用塔罗牌？",
+        howToUseTarotDesc: "占卜时，你需要先明确你的问题，然后集中精神抽取塔罗牌。每张牌的位置（正位或逆位）都有不同的含义，结合问题背景进行解读。记住，塔罗牌是引导工具，最终的决定权在你手中。",
 
         // 统计数据
-        usersTrust: "万+ 用户信赖",
-        accuracy: "% 准确率",
-        onlineService: "小时 在线服务",
+        usersTrust: "78万+ 用户信赖",
+        accuracy: "98% 准确率",
+        onlineService: "24小时 在线服务",
         dailyReadings: "+ 每日解读",
 
         // 问题类型选择
@@ -124,12 +129,22 @@ const translations = {
         error: "错误",
         success: "成功",
         cancel: "取消",
-        confirm: "确认"
+        confirm: "确认",
+
+        // 新增的翻译键
+        pageRecovered: "页面已恢复",
+        recoverPage: "恢复页面",
+        welcomeMessage: "欢迎来到塔罗牌世界！✨",
+        noResultToSave: "没有可保存的结果",
+        resultSaved: "结果已保存",
+        noFavoritesYet: "还没有收藏的占卜结果",
+        addToFavoritesHint: "在占卜结果页面点击收藏按钮来添加收藏"
     },
 
     en: {
         // Page titles
         pageTitle: "Tarot Cards - Does He Really Like Me?",
+        tarotTitle: "Tarot Cards",
 
         // Navigation and buttons
         home: "Home",
@@ -144,11 +159,15 @@ const translations = {
         mainSubtitle: "Tarot cards help you explore the answers to love, one-click interpretation of your heart",
         startDivination: "Start Divination",
         learnTarot: "Learn Tarot",
+        whatIsTarot: "What are Tarot Cards?",
+        whatIsTarotDesc: "Tarot cards are a set of 78 cards used for divination, divided into Major Arcana (22 cards) and Minor Arcana (56 cards). Each card has unique symbolic meanings that can help us gain insight into our inner world and receive guidance for life.",
+        howToUseTarot: "How to Use Tarot Cards?",
+        howToUseTarotDesc: "When divining, you need to first clarify your question, then focus your mind while drawing the tarot cards. Each card's position (upright or reversed) has different meanings, interpreted in the context of your question. Remember, tarot cards are guidance tools, and the final decision is in your hands.",
 
         // Statistics
-        usersTrust: "100K+ Users Trust",
-        accuracy: "% Accuracy Rate",
-        onlineService: "Hours Online Service",
+        usersTrust: "780K+ Users Trust",
+        accuracy: "98% Accuracy Rate",
+        onlineService: "24 Hours Online Service",
         dailyReadings: "+ Daily Readings",
 
         // Question type selection
@@ -251,7 +270,16 @@ const translations = {
         error: "Error",
         success: "Success",
         cancel: "Cancel",
-        confirm: "Confirm"
+        confirm: "Confirm",
+
+        // New translation keys
+        pageRecovered: "Page recovered",
+        recoverPage: "Recover Page",
+        welcomeMessage: "Welcome to the Tarot World! ✨",
+        noResultToSave: "No result to save",
+        resultSaved: "Result saved",
+        noFavoritesYet: "No favorite readings yet",
+        addToFavoritesHint: "Click the favorite button on the reading result page to add favorites"
     }
 };
 
