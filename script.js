@@ -735,7 +735,11 @@ function selectQuestionType(type, defaultQuestion) {
     event.currentTarget.classList.add('selected');
 
     // 显示选中反馈
-    showToast(`已选择：${defaultQuestion}`, 'success');
+    if (typeof t === 'function') {
+        showToast(t('questionSelected', { question: defaultQuestion }), 'success');
+    } else {
+        showToast(`已选择：${defaultQuestion}`, 'success');
+    }
 
     // 延迟进入占卜界面
     setTimeout(() => {
@@ -828,7 +832,11 @@ function startFortuneSession() {
     // 显示问题
     const questionDisplay = document.getElementById('currentQuestionDisplay');
     if (questionDisplay) {
-        questionDisplay.textContent = `正在为"${currentQuestion}"进行塔罗占卜...`;
+        if (typeof t === 'function') {
+            questionDisplay.textContent = t('diviningFor', { question: currentQuestion });
+        } else {
+            questionDisplay.textContent = `正在为"${currentQuestion}"进行塔罗占卜...`;
+        }
     }
 
     // 初始化抽牌

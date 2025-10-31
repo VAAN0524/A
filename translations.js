@@ -117,6 +117,7 @@ const translations = {
         removedFromFavorites: "已从收藏中移除",
         resultSaved: "结果已保存",
         shareCopied: "分享链接已复制到剪贴板",
+        questionSelected: "已选择：{question}",
 
         // 其他
         loading: "加载中...",
@@ -243,6 +244,7 @@ const translations = {
         removedFromFavorites: "Removed from favorites",
         resultSaved: "Result saved",
         shareCopied: "Share link copied to clipboard",
+        questionSelected: "Selected: {question}",
 
         // Others
         loading: "Loading...",

@@ -25,12 +25,21 @@ function updateDynamicTexts() {
         progressText.textContent = t('diviningProgress');
     }
 
-    // 更新问题显示
+    // 更新问题显示（强制更新所有可能的问题显示元素）
     if (typeof currentQuestion !== 'undefined' && currentQuestion) {
+        // 更新主要的问题显示
         const questionDisplay = document.getElementById('currentQuestionDisplay');
         if (questionDisplay) {
             questionDisplay.textContent = t('diviningFor', { question: currentQuestion });
         }
+
+        // 更新其他可能的问题显示元素
+        const allQuestionDisplays = document.querySelectorAll('[id*="question"], [id*="Question"]');
+        allQuestionDisplays.forEach(element => {
+            if (element.textContent.includes('正在为') || element.textContent.includes('Performing')) {
+                element.textContent = t('diviningFor', { question: currentQuestion });
+            }
+        });
     }
 
     // 更新抽牌界面文本
@@ -38,6 +47,18 @@ function updateDynamicTexts() {
 
     // 更新导航按钮文本
     updateNavigationTexts();
+
+    // 更新所有按钮中的span文本
+    document.querySelectorAll('button span').forEach(span => {
+        const parentButton = span.parentElement;
+        if (parentButton && parentButton.onclick) {
+            const buttonText = span.textContent.trim();
+            // 根据按钮的onclick函数或类名来确定应该使用的翻译键
+            if (parentButton.onclick && parentButton.onclick.toString().includes('backToHome')) {
+                span.textContent = t('home');
+            }
+        }
+    });
 }
 
 // 更新抽牌界面文本
@@ -70,23 +91,45 @@ function updateCardDrawingTexts() {
 
 // 更新导航按钮文本
 function updateNavigationTexts() {
-    // 更新面包屑导航
-    const breadcrumbItems = document.querySelectorAll('.breadcrumb-item');
-    breadcrumbItems.forEach((item, index) => {
-        if (index === 0) item.textContent = t('home');
-        if (index === 1) item.textContent = t('selectQuestionType');
-        if (index === 2) item.textContent = t('customQuestion');
+    // 更新所有带有data-i18n属性的导航元素
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key && ['home', 'selectQuestionType', 'customQuestion', 'backToHome'].includes(key)) {
+            element.textContent = t(key);
+        }
     });
 
-    // 更新返回按钮
-    const homeButton = document.getElementById('homeButton');
-    if (homeButton) {
-        const buttonText = homeButton.querySelector('span');
-        if (buttonText) {
-            buttonText.textContent = t('home');
+    // 更新面包屑导航（对于没有data-i18n属性的动态生成内容）
+    const breadcrumbItems = document.querySelectorAll('.breadcrumb-item');
+    breadcrumbItems.forEach((item, index) => {
+        if (index === 0 && !item.hasAttribute('data-i18n')) {
+            item.textContent = t('home');
         }
-        homeButton.setAttribute('title', t('backToHome'));
-    }
+        if (index === 1 && !item.hasAttribute('data-i18n')) {
+            item.textContent = t('selectQuestionType');
+        }
+        if (index === 2 && !item.hasAttribute('data-i18n')) {
+            item.textContent = t('customQuestion');
+        }
+    });
+
+    // 更新所有返回按钮和首页按钮
+    const homeButtons = document.querySelectorAll('button');
+    homeButtons.forEach(button => {
+        const text = button.textContent.trim();
+        if ((text === '首页' || text === 'Home') && !button.querySelector('span[data-i18n]')) {
+            const span = button.querySelector('span') || button;
+            span.textContent = t('home');
+        }
+    });
+
+    // 更新按钮的title属性
+    document.querySelectorAll('[title]').forEach(element => {
+        const title = element.getAttribute('title');
+        if (title === '返回首页' || title === 'Back to Home') {
+            element.setAttribute('title', t('backToHome'));
+        }
+    });
 }
 
 // 页面加载完成后初始化

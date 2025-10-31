@@ -316,7 +316,7 @@
                         <i class="fas fa-list mr-1"></i><span data-i18n="selectQuestionType">问题类型</span>
                     </button>
                     <span class="text-purple-400">/</span>
-                    <span class="text-purple-200">抽牌占卜</span>
+                    <span class="text-purple-200" data-i18n="cardDivination">抽牌占卜</span>
                 </nav>
 
                 <!-- 简化的问题显示 -->
@@ -335,7 +335,7 @@
                     <!-- 占卜进度 -->
                     <div class="w-full mb-6">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm text-purple-200">占卜进度</span>
+                            <span class="text-sm text-purple-200" data-i18n="diviningProgress">占卜进度</span>
                             <span class="text-sm text-purple-200"><span id="progressText">0</span>/3 张牌</span>
                         </div>
                         <div class="w-full bg-black bg-opacity-30 rounded-full h-2">
@@ -370,15 +370,15 @@
                     <div id="cardPositions" class="grid grid-cols-3 gap-4 w-full max-w-md mb-6">
                         <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-3 border border-purple-600 border-opacity-30">
                             <i class="fas fa-clock-rotate-left text-lg text-purple-400 mb-1"></i>
-                            <h6 class="font-bold text-purple-200 text-sm">过去</h6>
+                            <h6 class="font-bold text-purple-200 text-sm" data-i18n="past">过去</h6>
                         </div>
                         <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-3 border border-purple-600 border-opacity-30">
                             <i class="fas fa-spinner text-lg text-purple-400 mb-1"></i>
-                            <h6 class="font-bold text-purple-200 text-sm">现在</h6>
+                            <h6 class="font-bold text-purple-200 text-sm" data-i18n="present">现在</h6>
                         </div>
                         <div class="text-center bg-purple-800 bg-opacity-30 rounded-lg p-3 border border-purple-600 border-opacity-30">
                             <i class="fas fa-rocket text-lg text-purple-400 mb-1"></i>
-                            <h6 class="font-bold text-purple-200 text-sm">未来</h6>
+                            <h6 class="font-bold text-purple-200 text-sm" data-i18n="future">未来</h6>
                         </div>
                     </div>
 
@@ -386,9 +386,9 @@
                     <div id="startReadingBtn" class="text-center hidden w-full">
                         <button onclick="startReading()" class="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-lg px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-2xl">
                             <i class="fas fa-book-open mr-2"></i>
-                            开始解读
+                            <span data-i18n="startReading">开始解读</span>
                         </button>
-                        <p class="text-xs text-purple-200 mt-2">点击查看塔罗牌的指引</p>
+                        <p class="text-xs text-purple-200 mt-2" data-i18n="clickToView">点击查看塔罗牌的指引</p>
                     </div>
                 </div>
             </div>
@@ -399,7 +399,7 @@
     <section id="resultSection" class="container mx-auto px-4 py-16 hidden">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h3 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <h3 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent" data-i18n="readingResults">
                     塔罗解读结果
                 </h3>
                 <div id="questionDisplay" class="text-xl text-purple-200 mb-4"></div>
@@ -412,7 +412,7 @@
 
             <!-- 详细解读 -->
             <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20 mb-8">
-                <h4 class="text-2xl font-bold mb-6">详细解读</h4>
+                <h4 class="text-2xl font-bold mb-6" data-i18n="deepTarotReading">详细解读</h4>
                 <div id="interpretation" class="text-lg leading-relaxed text-purple-100">
                     <!-- 动态生成的解读内容 -->
                 </div>
@@ -420,7 +420,7 @@
 
             <!-- 建议和预测 -->
             <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20 mb-8">
-                <h4 class="text-2xl font-bold mb-6">建议与指引</h4>
+                <h4 class="text-2xl font-bold mb-6" data-i18n="personalizedGuidance">建议与指引</h4>
                 <div id="advice" class="text-lg text-purple-100 mb-4">
                     <!-- 动态生成的建议 -->
                 </div>
@@ -435,7 +435,7 @@
             <div class="grid md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <h5 class="text-xl font-bold">顺利指数</h5>
+                        <h5 class="text-xl font-bold" data-i18n="smoothnessIndex">顺利指数</h5>
                         <i class="fas fa-check-circle text-2xl"></i>
                     </div>
                     <div class="flex items-center">
@@ -448,7 +448,7 @@
 
                 <div class="bg-gradient-to-r from-blue-600 to-green-600 rounded-xl p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <h5 class="text-xl font-bold">情绪指数</h5>
+                        <h5 class="text-xl font-bold" data-i18n="moodIndex">情绪指数</h5>
                         <i class="fas fa-smile text-2xl"></i>
                     </div>
                     <div class="flex items-center">
@@ -464,15 +464,15 @@
             <div class="flex justify-center space-x-4">
                 <button onclick="shareResult()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-share-alt mr-2"></i>
-                    分享结果
+                    <span data-i18n="shareResult">分享结果</span>
                 </button>
                 <button onclick="saveResult()" class="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 px-6 py-3 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-bookmark mr-2"></i>
-                    保存结果
+                    <span data-i18n="saveResult">保存结果</span>
                 </button>
                 <button onclick="restart()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all">
                     <i class="fas fa-redo mr-2"></i>
-                    重新占卜
+                    <span data-i18n="newDivination">重新占卜</span>
                 </button>
             </div>
         </div>
@@ -482,7 +482,7 @@
     <section id="historySection" class="container mx-auto px-4 py-16 hidden">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-8">
-                <h3 class="text-3xl font-bold mb-4">占卜历史</h3>
+                <h3 class="text-3xl font-bold mb-4" data-i18n="history">占卜历史</h3>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i>
                     返回首页
@@ -498,7 +498,7 @@
     <section id="favoritesSection" class="container mx-auto px-4 py-16 hidden">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-8">
-                <h3 class="text-3xl font-bold mb-4">我的收藏</h3>
+                <h3 class="text-3xl font-bold mb-4" data-i18n="favorites">我的收藏</h3>
                 <button onclick="backToHome()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition-all transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i>
                     返回首页
@@ -513,7 +513,7 @@
     <!-- 了解塔罗 -->
     <section id="learnSection" class="container mx-auto px-4 py-16 hidden">
         <div class="max-w-4xl mx-auto">
-            <h3 class="text-3xl font-bold text-center mb-8">了解塔罗牌</h3>
+            <h3 class="text-3xl font-bold text-center mb-8" data-i18n="learnTarot">了解塔罗牌</h3>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
                     <h4 class="text-2xl font-bold mb-4">什么是塔罗牌？</h4>
