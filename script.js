@@ -1679,8 +1679,6 @@ function getContextualAdvice(cardAnalysis) {
 
 // 获取可行动步骤
 function getActionableSteps(cardAnalysis) {
-    const steps = [];
-
     // 基于主要主题的步骤，避免重复
     const themeSteps = {
         '新的开始与探索': [
@@ -1715,8 +1713,9 @@ function getActionableSteps(cardAnalysis) {
 
     // 只使用主题相关的步骤，避免重复的基础建议
     const steps = themeSteps[cardAnalysis.dominantTheme] || [
-        '🚀 创造突破：将灵感火花转化为实际的创造行动',
-        '🎯 愿景构建：清晰描绘你渴望实现的未来蓝图'
+        '🌟 内在反思：花些时间静心思考，倾听内心的声音',
+        '🎯 行动规划：将大目标分解为可执行的小步骤',
+        '🔄 持续成长：每天进步一点点，积累带来巨大变化'
     ];
 
     return steps;
@@ -1898,7 +1897,14 @@ function displayReadingResult() {
                         <div class="mb-6">
                             <h5 class="text-xl font-semibold mb-3 text-purple-200">📋 行动计划</h5>
                             <ul class="space-y-2 text-lg text-purple-100">
-                                ${readingResult.advice.practical.map(step => `<li class="flex items-start"><span class="mr-2">${step.split(':')[0]}:</span><span>${step.split(':')[1] || step}</span></li>`).join('')}
+                                ${readingResult.advice.practical.map(step => {
+                                    const parts = step.split(':');
+                                    if (parts.length >= 2) {
+                                        return `<li class="flex items-start"><span class="mr-2">${parts[0]}:</span><span>${parts.slice(1).join(':').trim()}</span></li>`;
+                                    } else {
+                                        return `<li class="flex items-start"><span>${step}</span></li>`;
+                                    }
+                                }).join('')}
                             </ul>
                         </div>
                     ` : ''}
