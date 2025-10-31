@@ -1018,10 +1018,6 @@ function createSelectedCardElement(card, index, isMobile = false) {
         ? { width: '100px', height: '150px' }
         : { width: '120px', height: '180px' };
 
-    const labelPosition = isMobile
-        ? 'position: static; margin-top: 8px;'
-        : 'position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); white-space: nowrap;';
-
     // 根据正逆位设置旋转角度
     const cardRotation = card.position === 'reversed' ? 'rotate(180deg)' : 'rotate(0deg)';
     const isReversed = card.position === 'reversed';
@@ -1049,9 +1045,6 @@ function createSelectedCardElement(card, index, isMobile = false) {
                 <div class="card-position" style="transform: ${cardRotation}; background: ${isReversed ? 'rgba(239, 68, 68, 0.9)' : 'rgba(34, 197, 94, 0.9)'}; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 10px;">${positionText}</div>
             </div>
             <div class="card-glow"></div>
-        </div>
-        <div class="mt-2 text-center" style="${labelPosition}">
-            <div class="text-xs text-purple-200 font-medium">第${card.slot}张牌</div>
         </div>
     `;
 
