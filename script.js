@@ -1206,9 +1206,9 @@ function generateInterpretation() {
 
     selectedCards.forEach((card, index) => {
         const meaning = card.position === 'upright' ? card.uprightMeaning : card.reversedMeaning;
-        const psychologicalInsight = getPsychologicalInsight(card, index);
-        const spiritualGuidance = getSpiritualGuidance(card, index);
-        const practicalAdvice = getPracticalAdvice(card, index);
+        const psychologicalInsight = getPsychologicalInsight(card, card.position);
+        const spiritualGuidance = getSpiritualGuidance(card, card.position);
+        const practicalAdvice = getPracticalAdvice(card, card.position);
 
         interpretations.push({
             position: positions[index],
@@ -2119,7 +2119,7 @@ function displayReadingResult() {
                     <div class="bg-gradient-to-r from-purple-800 to-pink-800 bg-opacity-30 backdrop-blur-md rounded-xl p-8 border border-purple-300 border-opacity-30">
                         <h4 class="text-2xl font-bold mb-4 flex items-center">
                             <span class="text-2xl mr-3">⚡</span>
-                            综合能量洞察
+                            ${typeof t === 'function' ? t('energyInsights') : '⚡ 综合能量洞察'}
                         </h4>
                         <div class="text-lg leading-relaxed text-purple-100">
                             ${readingResult.interpretation.filter(interp => interp.combination).map(interp => interp.combination.summary).join('')}
@@ -2131,33 +2131,33 @@ function displayReadingResult() {
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
                     <h4 class="text-2xl font-bold mb-6 flex items-center">
                         <span class="text-2xl mr-3">🌟</span>
-                        个性化指导方案
+                        ${typeof t === 'function' ? t('personalizedGuidance') : '🌟 个性化指导方案'}
                     </h4>
 
                     ${readingResult.advice.primary ? `
                         <div class="mb-6">
-                            <h5 class="text-xl font-semibold mb-3 text-purple-200">核心指引</h5>
+                            <h5 class="text-xl font-semibold mb-3 text-purple-200">${typeof t === 'function' ? t('coreGuidance') : '核心指引'}</h5>
                             <p class="text-lg text-purple-100">${readingResult.advice.primary}</p>
                         </div>
                     ` : ''}
 
                     ${readingResult.advice.secondary ? `
                         <div class="mb-6">
-                            <h5 class="text-xl font-semibold mb-3 text-purple-200">辅助建议</h5>
+                            <h5 class="text-xl font-semibold mb-3 text-purple-200">${typeof t === 'function' ? t('additionalAdvice') : '辅助建议'}</h5>
                             <p class="text-lg text-purple-100">${readingResult.advice.secondary}</p>
                         </div>
                     ` : ''}
 
                     ${readingResult.advice.spiritual ? `
                         <div class="mb-6">
-                            <h5 class="text-xl font-semibold mb-3 text-purple-200">🌙 灵性修行</h5>
+                            <h5 class="text-xl font-semibold mb-3 text-purple-200">${typeof t === 'function' ? t('spiritualPractice') : '🌙 灵性修行'}</h5>
                             <p class="text-lg text-purple-100">${readingResult.advice.spiritual}</p>
                         </div>
                     ` : ''}
 
                     ${readingResult.advice.practical && readingResult.advice.practical.length > 0 ? `
                         <div class="mb-6">
-                            <h5 class="text-xl font-semibold mb-3 text-purple-200">📋 行动计划</h5>
+                            <h5 class="text-xl font-semibold mb-3 text-purple-200">${typeof t === 'function' ? t('actionPlan') : '📋 行动计划'}</h5>
                             <ul class="space-y-2 text-lg text-purple-100">
                                 ${readingResult.advice.practical.map(step => {
                                     const parts = step.split(':');
@@ -2173,7 +2173,7 @@ function displayReadingResult() {
 
                     ${readingResult.advice.affirmation ? `
                         <div class="bg-gradient-to-r from-purple-700 to-pink-700 bg-opacity-50 rounded-lg p-6 text-center">
-                            <h5 class="text-xl font-semibold mb-3 text-purple-200">💫 今日肯定语</h5>
+                            <h5 class="text-xl font-semibold mb-3 text-purple-200">${typeof t === 'function' ? t('todaysAffirmation') : '💫 今日肯定语'}</h5>
                             <p class="text-xl font-bold text-purple-100 italic">"${readingResult.advice.affirmation}"</p>
                         </div>
                     ` : ''}
@@ -2183,18 +2183,18 @@ function displayReadingResult() {
                 <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-8 border border-white border-opacity-20">
                     <h4 class="text-2xl font-bold mb-6 flex items-center">
                         <span class="text-2xl mr-3">⏰</span>
-                        时间能量预测
+                        ${typeof t === 'function' ? t('timeEnergyPrediction') : '⏰ 时间能量预测'}
                     </h4>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="bg-gradient-to-r from-blue-600 to-purple-600 bg-opacity-50 rounded-lg p-6">
-                            <h5 class="text-xl font-semibold mb-3">能量周期</h5>
-                            <p class="text-lg mb-2">${readingResult.prediction.positive ? '✅ 积极向上' : '⚠️ 需要谨慎'}</p>
-                            <p class="text-purple-200">可能性：${readingResult.prediction.likelihood}</p>
+                            <h5 class="text-xl font-semibold mb-3">${typeof t === 'function' ? t('energyCycle') : '能量周期'}</h5>
+                            <p class="text-lg mb-2">${readingResult.prediction.positive ? '✅ ' + (typeof t === 'function' ? t('positive') : '积极向上') : '⚠️ 需要谨慎'}</p>
+                            <p class="text-purple-200">${typeof t === 'function' ? t('possibility') : '可能性'}：${readingResult.prediction.likelihood}</p>
                         </div>
 
                         <div class="bg-gradient-to-r from-green-600 to-teal-600 bg-opacity-50 rounded-lg p-6">
-                            <h5 class="text-xl font-semibold mb-3">时间框架</h5>
+                            <h5 class="text-xl font-semibold mb-3">${typeof t === 'function' ? t('timeFrame') : '时间框架'}</h5>
                             <p class="text-lg">${readingResult.prediction.timeframe}</p>
                             ${readingResult.advice.timeframe ? `<p class="text-purple-200 mt-2">${readingResult.advice.timeframe.advice}</p>` : ''}
                         </div>

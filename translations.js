@@ -144,13 +144,33 @@ const translations = {
         psychologicalInsights: "🧠 心理洞察",
         spiritualGuidance: "✨ 灵性指引",
         practicalAdvice: "🎯 实用建议",
+        energyInsights: "⚡ 综合能量洞察",
+        personalizedGuidance: "🌟 个性化指导方案",
+        coreGuidance: "核心指引",
+        additionalAdvice: "辅助建议",
+        spiritualPractice: "🌙 灵性修行",
+        actionPlan: "📋 行动计划",
+        todaysAffirmation: "💫 今日肯定语",
+        timeEnergyPrediction: "⏰ 时间能量预测",
 
         // 牌面位置相关翻译
         upright: "正位",
         reversed: "逆位",
         coreRevelation: "核心启示",
         shadowMode: "逆位的出现提醒你，需要特别关注",
-        shadowPattern: "的内在模式"
+        shadowPattern: "的内在模式",
+
+        // 时间能量分析相关翻译
+        energyCycle: "能量周期",
+        positive: "积极向上",
+        possibility: "可能性",
+        likelihood: "较高",
+        timeFrame: "时间框架",
+        shortTerm: "短期（1-3个月）",
+        mediumTerm: "中期（3-6个月）",
+        longTerm: "长期（6个月以上）",
+        bestTimeToAct: "现在是行动的最佳时机，抓住这个能量高峰期",
+        keyFactors: "关键影响因素"
     },
 
     en: {
@@ -297,13 +317,33 @@ const translations = {
         psychologicalInsights: "🧠 Psychological Insights",
         spiritualGuidance: "✨ Spiritual Guidance",
         practicalAdvice: "🎯 Practical Advice",
+        energyInsights: "⚡ Energy Insights",
+        personalizedGuidance: "🌟 Personalized Guidance Plan",
+        coreGuidance: "Core Guidance",
+        additionalAdvice: "Additional Advice",
+        spiritualPractice: "🌙 Spiritual Practice",
+        actionPlan: "📋 Action Plan",
+        todaysAffirmation: "💫 Today's Affirmation",
+        timeEnergyPrediction: "⏰ Time Energy Prediction",
 
         // Card position related translations
         upright: "Upright",
         reversed: "Reversed",
         coreRevelation: "Core Revelation",
         shadowMode: "The reversed appearance reminds you to pay special attention to",
-        shadowPattern: "inner patterns"
+        shadowPattern: "inner patterns",
+
+        // Time energy analysis related translations
+        energyCycle: "Energy Cycle",
+        positive: "Positive",
+        possibility: "Possibility",
+        likelihood: "High",
+        timeFrame: "Time Frame",
+        shortTerm: "Short-term (1-3 months)",
+        mediumTerm: "Medium-term (3-6 months)",
+        longTerm: "Long-term (6+ months)",
+        bestTimeToAct: "Now is the best time to act, seize this energy peak",
+        keyFactors: "Key Influencing Factors"
     }
 };
 
