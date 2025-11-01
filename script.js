@@ -1199,9 +1199,9 @@ function generateInterpretation() {
         typeof t === 'function' ? t('futureDevelopment') : '未来的发展'
     ];
     const timeContext = {
-        [typeof t === 'function' ? t('pastSituation') : '过去的情况']: typeof t === 'function' ? '在过去的影响层面' : '在过去的影响层面',
-        [typeof t === 'function' ? t('currentState') : '现在的状态']: typeof t === 'function' ? '在当下的能量场中' : '在当下的能量场中',
-        [typeof t === 'function' ? t('futureDevelopment') : '未来的发展']: typeof t === 'function' ? '在未来的可能性维度' : '在未来的可能性维度'
+        [typeof t === 'function' ? t('pastSituation') : '过去的情况']: typeof t === 'function' ? t('inPastInfluence') : '在过去的影响层面',
+        [typeof t === 'function' ? t('currentState') : '现在的状态']: typeof t === 'function' ? t('inCurrentEnergy') : '在当下的能量场中',
+        [typeof t === 'function' ? t('futureDevelopment') : '未来的发展']: typeof t === 'function' ? t('inFuturePossibility') : '在未来的可能性维度'
     };
 
     selectedCards.forEach((card, index) => {
@@ -1670,6 +1670,48 @@ function getPracticalAdvice(card, position) {
 
 // 生成分层含义
 function generateLayeredMeaning(card, positionKey) {
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
+    if (isEnglish) {
+        const meanings = {
+            '愚人': {
+                upright: 'This is a moment of new beginnings. The universe invites you to release past baggage and welcome unknown possibilities with a pure heart. Your soul yearns for adventure and growth.',
+                reversed: 'Inner fears or external expectations may be hindering you from expressing your true self. It\'s time to reconnect with that infinite potential.'
+            },
+            '魔术师': {
+                upright: 'You are in a powerful manifestation period where thoughts, words, and actions are co-creating your reality. Use this power consciously.',
+                reversed: 'You may feel disconnected from your power or lack wisdom in using these forces. Reconnect with your inner divinity.'
+            },
+            '女祭司': {
+                upright: 'The doors of the subconscious are opening, and ancient feminine wisdom is flowing. Trust your intuition—it knows what logic cannot understand.',
+                reversed: 'You may be relying too much on reason, ignoring the wisdom of emotions and intuition. Balance the yin-yang energies.'
+            }
+        };
+
+        const cardMeaning = meanings[card.name]?.[positionKey];
+        if (cardMeaning) return cardMeaning;
+
+        // 为每张牌生成个性化的备用解读
+        const personalizedMeanings = {
+            '愚人': {
+                upright: 'Your heart is calling for a brand new adventure. It\'s time to release fear of the unknown and explore life\'s infinite possibilities with childlike curiosity.',
+                reversed: 'Inner courage is awakening. Though it may seem stagnant on the surface, you\'re actually gathering energy for the next great leap.'
+            },
+            '魔术师': {
+                upright: 'The universe has provided all the tools to realize your dreams. Now you need to believe in your creative ability and transform intentions into tangible reality.',
+                reversed: 'Your creativity is undergoing an important transformation. Old patterns are dissolving to make way for more authentic expression.'
+            },
+            '女祭司': {
+                upright: 'Your intuition is awakening, the sea of inner wisdom is rising. Trust those silent guides—they are closer to truth than any logic.',
+                reversed: 'Your intuitive channels are clearing. Though temporarily confused, you\'re actually making space for deeper wisdom.'
+            }
+        };
+
+        return personalizedMeanings[card.name]?.[positionKey] || 'This card is revealing a unique life lesson for you. Listen to its wisdom with an open heart, and the answer will emerge at the perfect moment.';
+    }
+
+    // 中文内容
     const meanings = {
         '愚人': {
             upright: '这是一个全新开始的时刻，宇宙邀请你放下过去的包袱，以纯净的心灵迎接未知的可能性。你的灵魂渴望冒险和成长。',
@@ -1780,11 +1822,45 @@ function generateLayeredMeaning(card, positionKey) {
         }
     };
 
-    return personalizedMeanings[card.name]?.[positionKey] || '这张牌正在为你揭示一个独特的人生课题，静心聆听它的智慧，答案将在最适合的时刻浮现。';
+    return personalizedMeanings[card.name]?.[positionKey] || (typeof t === 'function' ? t('deepMeaning') : '这张牌正在为你揭示一个独特的人生课题，静心聆听它的智慧，答案将在最适合的时刻浮现。');
 }
 
 // 获取卡牌主题
 function getCardThemes(cardName, positionKey) {
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
+    if (isEnglish) {
+        const themes = {
+            '愚人': {
+                upright: {
+                    main: 'New beginnings and infinite possibilities',
+                    shadow: 'Fear of the unknown and avoidance of responsibility'
+                },
+                reversed: {
+                    main: 'Reconnecting with innocence and courage',
+                    shadow: 'Reckless behavior or lack of direction'
+                }
+            },
+            '魔术师': {
+                upright: {
+                    main: 'Active creation and manifestation of willpower',
+                    shadow: 'Potential manipulation tendencies or arrogance'
+                },
+                reversed: {
+                    main: 'Regaining personal power',
+                    shadow: 'Feelings of inadequacy or deceptive tendencies'
+                }
+            }
+        };
+
+        return themes[cardName]?.[positionKey] || {
+            main: typeof t === 'function' ? t('uniqueLifeJourney') : 'A unique life journey unfolding',
+            shadow: 'Deep wisdom to embrace'
+        };
+    }
+
+    // 中文内容
     const themes = {
         '愚人': {
             upright: {
@@ -1809,7 +1885,7 @@ function getCardThemes(cardName, positionKey) {
     };
 
     return themes[cardName]?.[positionKey] || {
-        main: '正在展开的独特生命篇章',
+        main: typeof t === 'function' ? t('uniqueLifeJourney') : '正在展开的独特生命篇章',
         shadow: '需要拥抱的深层智慧'
     };
 }
@@ -1822,14 +1898,27 @@ function generateCombinationInsight() {
     const allReversed = selectedCards.every(card => card.position === 'reversed');
     const mixedPositions = !allUpright && !allReversed;
 
+    // 根据当前语言选择内容
+    const isEnglish = typeof currentLanguage !== 'undefined' && currentLanguage === 'en';
+
     let insight = { summary: '', patterns: [], recommendations: [] };
 
-    if (allUpright) {
-        insight.summary = '🌟 **宇宙的黄金通道**：所有牌面都呈现出强大的积极能量，这是一个天时地利人和的完美时刻。命运的顺风正为你扬起帆船。';
-    } else if (allReversed) {
-        insight.summary = '🔄 **灵魂的深度蜕变**：所有牌面逆位出现，表明你的内在正在进行一次重要的重构。这不是阻碍，而是为更高级的你让出空间。';
-    } else if (mixedPositions) {
-        insight.summary = '⚖️ **阴阳和合的舞蹈**：正逆位的组合表明你正在学习在看似对立的力量中找到和谐。这是一场深刻的内在平衡之旅。';
+    if (isEnglish) {
+        if (allUpright) {
+            insight.summary = '🌟 **Universal Golden Channel**: All cards show powerful positive energy. This is a perfect moment of cosmic alignment. The winds of fate are filling your sails.';
+        } else if (allReversed) {
+            insight.summary = '🔄 **Deep Soul Transformation**: All cards reversed indicate your inner self is undergoing important reconstruction. This is not obstruction, but making space for a higher version of you.';
+        } else if (mixedPositions) {
+            insight.summary = '⚖️ **Dance of Yin-Yang Harmony**: The combination of upright and reversed positions shows you\'re learning to find harmony in seemingly opposing forces. This is a profound inner balance journey.';
+        }
+    } else {
+        if (allUpright) {
+            insight.summary = '🌟 **宇宙的黄金通道**：所有牌面都呈现出强大的积极能量，这是一个天时地利人和的完美时刻。命运的顺风正为你扬起帆船。';
+        } else if (allReversed) {
+            insight.summary = '🔄 **灵魂的深度蜕变**：所有牌面逆位出现，表明你的内在正在进行一次重要的重构。这不是阻碍，而是为更高级的你让出空间。';
+        } else if (mixedPositions) {
+            insight.summary = '⚖️ **阴阳和合的舞蹈**：正逆位的组合表明你正在学习在看似对立的力量中找到和谐。这是一场深刻的内在平衡之旅。';
+        }
     }
 
     return insight;

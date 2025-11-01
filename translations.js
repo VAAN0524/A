@@ -170,7 +170,17 @@ const translations = {
         mediumTerm: "中期（3-6个月）",
         longTerm: "长期（6个月以上）",
         bestTimeToAct: "现在是行动的最佳时机，抓住这个能量高峰期",
-        keyFactors: "关键影响因素"
+        keyFactors: "关键影响因素",
+
+        // 深度解读相关翻译
+        inPastInfluence: "在过去的影响层面",
+        inCurrentEnergy: "在当下的能量场中",
+        inFuturePossibility: "在未来的可能性维度",
+        deepMeaning: "深层含义",
+        uniqueLifeJourney: "独特生命篇章",
+        trustIntuition: "相信直觉",
+        universeBalance: "宇宙的平衡法则",
+        completeReconstruction: "彻底的重建比修补更有效"
     },
 
     en: {
@@ -343,7 +353,17 @@ const translations = {
         mediumTerm: "Medium-term (3-6 months)",
         longTerm: "Long-term (6+ months)",
         bestTimeToAct: "Now is the best time to act, seize this energy peak",
-        keyFactors: "Key Influencing Factors"
+        keyFactors: "Key Influencing Factors",
+
+        // Deep reading related translations
+        inPastInfluence: "in the past influence layer",
+        inCurrentEnergy: "in the current energy field",
+        inFuturePossibility: "in the future possibility dimension",
+        deepMeaning: "Deep Meaning",
+        uniqueLifeJourney: "unique life journey",
+        trustIntuition: "Trust your intuition",
+        universeBalance: "universe's balance law",
+        completeReconstruction: "complete reconstruction is more effective than patching"
     }
 };
 
